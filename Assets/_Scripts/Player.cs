@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     public float speed;
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
-    public GameObject projectile;
+    
+    public Transform bullet;
     public float bulletVelocity;
 
     // Start is called before the first frame update
@@ -56,14 +57,18 @@ public class Player : MonoBehaviour
     }
 
     void fireBullet() {
-        GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity, transform.parent) as GameObject;
-        if (orientation == -1)
-        {
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity * -1);
-        } else
-        {
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity);
-        }
+        Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
+        float shootDir = bulletVelocity * orientation;
+        bulletTransform.GetComponent<Bullet>().Setup(shootDir);
+
+        // if (orientation == -1)
+        // {
+        //     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity * -1);
+
+        // } else
+        // {
+        //     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity);
+        // }
 
         /*
         if (orientation == -1)

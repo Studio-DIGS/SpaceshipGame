@@ -2662,8 +2662,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
-  input: {x: 0, y: 0}
   orientation: 1
+  bullet: {fileID: 5290194254504126321, guid: 36f2259423a721744b4441f26b47f614, type: 3}
+  bulletVelocity: 50
 --- !u!4 &1182290870
 Transform:
   m_ObjectHideFlags: 0
