@@ -13,7 +13,7 @@ public class WorldBounds : MonoBehaviour
     //     pathCreator = GetComponent<PathCreator>();
     // }
 
-    // Update is called once per frame
+
     void LateUpdate()
     {
         if (pathCreator != null)
