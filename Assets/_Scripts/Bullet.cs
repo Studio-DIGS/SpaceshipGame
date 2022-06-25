@@ -36,6 +36,5 @@ public class Bullet : MonoBehaviour
             Vector3 pathPos = pathCreator.path.GetPointAtDistance(distance);
             transform.position = new Vector3(pathPos.x, height, pathPos.z);
         }
-        // transform.position += transform.forward * shootDir * Time.deltaTime;
     }
 }
