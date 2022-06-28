@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
 
     //GettingToPath Vars
     private bool isOnPath = false;
-    private bool isOnLeftSide = true;
     private GameObject path;
     private PathCreator pathCreator;
 
@@ -24,16 +23,6 @@ public class Enemy : MonoBehaviour
         path = GameObject.FindWithTag("WorldPath");
         pathCreator = path.GetComponent<PathCreator>();
     }
-    void Start()
-    {
-        isOnPath = false;
-        if (transform.localPosition.x < 0) {
-            isOnLeftSide = true;
-        } else {
-            isOnLeftSide = false;
-        }
-
-    }
     // Update is called once per frame
     void Update()
     {
@@ -41,14 +30,7 @@ public class Enemy : MonoBehaviour
 
             float pathDist = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
             float distance = transform.position.x - pathCreator.path.GetPointAtDistance(pathDist).x;
-            Debug.Log(distance);
-            if (Mathf.Abs(distance) >= 1) {
-                if (isOnLeftSide) {
-                    rigidBody.velocity = Vector3.right * speed;
-                } else {
-                    rigidBody.velocity = Vector3.left * speed;
-                }
-            } else {
+            if (!(Mathf.Abs(distance) >= 1)) {
                 gameObject.AddComponent<PathBound>();
                 isOnPath = true;
             }
