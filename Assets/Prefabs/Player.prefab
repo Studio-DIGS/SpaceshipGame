@@ -133,11 +133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
   speed: 30
+  acceleration: 8
   orientation: 1
   bullet: {fileID: 5290194254504126321, guid: 36f2259423a721744b4441f26b47f614, type: 3}
   bulletVelocity: 90
-  dashingPower: 60
-  dashingTime: 0.2
+  dashingPower: 50
+  dashingTime: 0.3
   dashingCooldown: 0.8
 --- !u!114 &3018681973087351007
 MonoBehaviour:

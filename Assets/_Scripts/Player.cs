@@ -6,6 +6,7 @@ public class Player : ObjectOnPath
 {
     
     public float speed;
+    public float acceleration;
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
     
@@ -46,7 +47,7 @@ public class Player : ObjectOnPath
         //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
-        move = input * speed;
+        move = Vector2.Lerp(move, input * speed, acceleration * Time.deltaTime);
 
         // Shooting script for player
         if (Input.GetKeyDown(KeyCode.Z))
