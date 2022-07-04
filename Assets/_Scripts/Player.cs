@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : ObjectOnPath
 {
-    private CharacterController controller;
     
     public float speed;
     private Vector2 input;    
@@ -16,7 +15,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+
     }
 
     public float getOrientation()
@@ -38,9 +37,7 @@ public class Player : MonoBehaviour
         */
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
-        Vector3 move = transform.forward * input.x + new Vector3(0,input.y,0); // get direction of movement based on forward direction
-        controller.Move(move * Time.deltaTime * speed);
-        Debug.DrawLine(transform.position, transform.position + move * speed, Color.blue);
+        move = input * speed;
 
         /*
             Shooting script for player
@@ -60,24 +57,5 @@ public class Player : MonoBehaviour
         Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
         float shootDir = bulletVelocity * orientation;
         bulletTransform.GetComponent<Bullet>().Setup(shootDir);
-
-        // if (orientation == -1)
-        // {
-        //     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity * -1);
-
-        // } else
-        // {
-        //     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity);
-        // }
-
-        /*
-        if (orientation == -1)
-        {
-            bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletVelocity * -1;
-        } else
-        {
-            bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletVelocity;
-        }
-        */
     }
 }

@@ -4,13 +4,8 @@ using UnityEngine;
 
 using PathCreation;
 
-public class Bullet : MonoBehaviour
+public class Bullet : ObjectOnPath
 {
-    private GameObject path;
-    private PathCreator pathCreator;
-
-    private float distance;
-    private float height;
     private float shootDir;
 
     public void Setup(float shootDir)
@@ -18,23 +13,8 @@ public class Bullet : MonoBehaviour
         this.shootDir = shootDir;
     }
 
-    void Start()
+    void Update()
     {
-        path = GameObject.FindWithTag("WorldPath");
-        pathCreator = path.GetComponent<PathCreator>();
-
-        distance = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
-        
-        height = transform.position.y;
-    }
-
-    void FixedUpdate()
-    {
-        if (pathCreator != null)
-        {
-            distance += shootDir * Time.deltaTime;
-            Vector3 pathPos = pathCreator.path.GetPointAtDistance(distance);
-            transform.position = new Vector3(pathPos.x, height, pathPos.z);
-        }
+        move.x = shootDir;
     }
 }
