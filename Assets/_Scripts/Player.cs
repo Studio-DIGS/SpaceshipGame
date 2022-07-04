@@ -32,16 +32,13 @@ public class Player : ObjectOnPath
 
     void _updatePlayer()
     {
-        /*
-            Gets player movement input and moves ship
-        */
+
+        //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
         move = input * speed;
 
-        /*
-            Shooting script for player
-        */
+        // Shooting script for player
         if (Input.GetKeyDown(KeyCode.Z))
         {
             fireBullet();
