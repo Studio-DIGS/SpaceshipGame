@@ -4,25 +4,20 @@ using UnityEngine;
 
 public class Player : ObjectOnPath
 {
-    
-    public float speed;
-    public float acceleration;
+    private PlayerStats playerStats;
+
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
-    
+
     public Transform bullet;
-    public float bulletVelocity;
 
     private bool canDash = true;
     private bool isDashing;
-    public float dashingPower;
-    public float dashingTime;
-    public float dashingCooldown;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        playerStats = GetComponent<PlayerStats>();
     }
 
     public float getOrientation()
@@ -47,7 +42,7 @@ public class Player : ObjectOnPath
         //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
-        move = Vector2.Lerp(move, input * speed, acceleration * Time.deltaTime);
+        move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
 
         // Shooting script for player
         if (Input.GetKeyDown(KeyCode.Z))
@@ -70,7 +65,7 @@ public class Player : ObjectOnPath
     void fireBullet() 
     {
         Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
-        float shootDir = bulletVelocity * orientation;
+        float shootDir = playerStats.bulletVelocity * orientation;
         bulletTransform.GetComponent<Bullet>().Setup(shootDir);
     }
 
@@ -79,12 +74,12 @@ public class Player : ObjectOnPath
         canDash = false;
         isDashing = true;
 
-        move = input * dashingPower;
+        move = input * playerStats.dashingPower;
 
-        yield return new WaitForSeconds(dashingTime);
+        yield return new WaitForSeconds(playerStats.dashingTime);
         isDashing = false;
 
-        yield return new WaitForSeconds(dashingCooldown);
+        yield return new WaitForSeconds(playerStats.dashingCooldown);
         canDash = true;
     }
 }
