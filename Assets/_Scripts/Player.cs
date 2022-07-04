@@ -12,6 +12,12 @@ public class Player : ObjectOnPath
     public Transform bullet;
     public float bulletVelocity;
 
+    private bool canDash = true;
+    private bool isDashing;
+    public float dashingPower;
+    public float dashingTime;
+    public float dashingCooldown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +38,10 @@ public class Player : ObjectOnPath
 
     void _updatePlayer()
     {
+        if (isDashing)
+        {
+            return;
+        }
 
         //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
@@ -43,6 +53,12 @@ public class Player : ObjectOnPath
         {
             fireBullet();
         }
+
+        // Dashing script for player
+        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        {
+            StartCoroutine(dash());
+        }
     }
 
     void _updateParticles()
@@ -50,9 +66,24 @@ public class Player : ObjectOnPath
         return;
     }
 
-    void fireBullet() {
+    void fireBullet() 
+    {
         Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
         float shootDir = bulletVelocity * orientation;
         bulletTransform.GetComponent<Bullet>().Setup(shootDir);
+    }
+
+    private IEnumerator dash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        move = input * dashingPower;
+
+        yield return new WaitForSeconds(dashingTime);
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 }
