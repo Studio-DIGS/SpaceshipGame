@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : ObjectOnPath
 {
-    private CharacterController controller;
-    
-    public float speed;
+    private PlayerStats playerStats;
+
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
-    
+
     public Transform bullet;
-    public float bulletVelocity;
+
+    private bool canDash = true;
+    private bool isDashing;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     public float getOrientation()
@@ -33,21 +34,26 @@ public class Player : MonoBehaviour
 
     void _updatePlayer()
     {
-        /*
-            Gets player movement input and moves ship
-        */
+        if (isDashing)
+        {
+            return;
+        }
+
+        //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
-        Vector3 move = transform.forward * input.x + new Vector3(0,input.y,0); // get direction of movement based on forward direction
-        controller.Move(move * Time.deltaTime * speed);
-        Debug.DrawLine(transform.position, transform.position + move * speed, Color.blue);
+        move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
 
-        /*
-            Shooting script for player
-        */
+        // Shooting script for player
         if (Input.GetKeyDown(KeyCode.Z))
         {
             fireBullet();
+        }
+
+        // Dashing script for player
+        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        {
+            StartCoroutine(dash());
         }
     }
 
@@ -56,28 +62,24 @@ public class Player : MonoBehaviour
         return;
     }
 
-    void fireBullet() {
+    void fireBullet() 
+    {
         Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
-        float shootDir = bulletVelocity * orientation;
+        float shootDir = playerStats.bulletVelocity * orientation;
         bulletTransform.GetComponent<Bullet>().Setup(shootDir);
+    }
 
-        // if (orientation == -1)
-        // {
-        //     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity * -1);
+    private IEnumerator dash()
+    {
+        canDash = false;
+        isDashing = true;
 
-        // } else
-        // {
-        //     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * bulletVelocity);
-        // }
+        move = input * playerStats.dashingPower;
 
-        /*
-        if (orientation == -1)
-        {
-            bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletVelocity * -1;
-        } else
-        {
-            bullet.GetComponent<Rigidbody>().velocity = transform.forward * bulletVelocity;
-        }
-        */
+        yield return new WaitForSeconds(playerStats.dashingTime);
+        isDashing = false;
+
+        yield return new WaitForSeconds(playerStats.dashingCooldown);
+        canDash = true;
     }
 }
