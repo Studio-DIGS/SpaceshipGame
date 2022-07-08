@@ -13,6 +13,9 @@ public class FormationPrefabScript : MonoBehaviour
     private List<Enemy> enemy;
     [SerializeField] private float speed = 30.0f;
 
+    //Points Vars
+    public float multiplier = 1f;
+
     private void Awake() 
     {
         path = GameObject.FindWithTag("WorldPath");
@@ -64,6 +67,10 @@ public class FormationPrefabScript : MonoBehaviour
                         enemy.GetComponent<Enemy>().isOnPath = true;
                     }
                 }
+            }
+            if (transform.childCount == 0)
+            {
+                Destroy(gameObject);
             }
     }
 }

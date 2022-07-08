@@ -11,10 +11,12 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     public class Wave
     {
         public string name;
-        public Transform enemy;
         public int count;
         public float rate;
     }
+
+    public Transform[] enemyList;
+    private int enemyIndex;
 
     public Wave[] waves;
     private int nextWave = 0;
@@ -29,7 +31,6 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     private void Start() 
     {
         waveCountdown = timeBetweenWaves;
-
     }
 
     private void Update() 
@@ -50,6 +51,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         {
             if (state != SpawnState.SPAWNING)
             {
+                enemyIndex = Random.Range(0, enemyList.Length);
                 StartCoroutine( SpawnWave( waves[nextWave] ) );
             }
         }
@@ -98,7 +100,8 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
         for (int i = 0; i < _wave.count; i++)
         {
-            SpawnEnemy(_wave.enemy);
+            SpawnEnemy(enemyList[enemyIndex]);
+            enemyIndex = Random.Range(0, enemyList.Length);
             yield return new WaitForSeconds( 1f / _wave.rate );
         }
 

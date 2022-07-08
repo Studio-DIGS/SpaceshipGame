@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : ObjectOnPath
 {
     private PlayerStats playerStats;
+    private Points points;
 
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
@@ -18,6 +19,8 @@ public class Player : ObjectOnPath
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        points = GetComponent<Points>();
+        points.SetPoints(0);
     }
 
     public float getOrientation()

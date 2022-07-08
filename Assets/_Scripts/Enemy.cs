@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class Enemy : MonoBehaviour
     //OnPath Vars
     private bool hasAddedComponents = false;
     private float direction;
-    public GameObject player;
+    private GameObject player;
     private Rigidbody rigidBody;
     public float speed;
     private const int speed_to_force = 15;
@@ -19,7 +20,11 @@ public class Enemy : MonoBehaviour
     private PathCreator pathCreator;
     public bool isOnPath = false;
 
+    //Points Vars
+    [SerializeField] int pointsWorth = 100;
+
     private void Awake() {
+        player = GameObject.Find("Player");
         formationScript = transform.parent.GetComponent<FormationPrefabScript>();
         rigidBody = GetComponent<Rigidbody>();
         direction = player.GetComponent<Player>().orientation;
@@ -59,6 +64,11 @@ public class Enemy : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        Destroy(gameObject);
+        if (other.gameObject.tag == "PlayerProjectile")
+        {
+            player.GetComponent<Points>().AddPoints((int)Math.Floor(pointsWorth * formationScript.multiplier));
+            Debug.Log(player.GetComponent<Points>().GetPoints());
+            Destroy(gameObject);
+        }
     }
 }
