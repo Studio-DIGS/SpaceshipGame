@@ -6,6 +6,7 @@ using PathCreation;
 public class Enemy : MonoBehaviour
 {
     //OnPath Vars
+    private bool hasAddedComponents = false;
     private float direction;
     public GameObject player;
     private Rigidbody rigidBody;
@@ -13,37 +14,48 @@ public class Enemy : MonoBehaviour
     private const int speed_to_force = 15;
 
     //GettingToPath Vars
-    private bool isOnPath = false;
+    private FormationPrefabScript formationScript;
     private GameObject path;
     private PathCreator pathCreator;
+    public bool isOnPath = false;
 
     private void Awake() {
+        formationScript = transform.parent.GetComponent<FormationPrefabScript>();
         rigidBody = GetComponent<Rigidbody>();
         direction = player.GetComponent<Player>().orientation;
         path = GameObject.FindWithTag("WorldPath");
         pathCreator = path.GetComponent<PathCreator>();
     }
-    // Update is called once per frame
+
     void Update()
     {
-        if (!isOnPath) {
-
-            float pathDist = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
-            float distance = transform.position.x - pathCreator.path.GetPointAtDistance(pathDist).x;
-            if (!(Mathf.Abs(distance) >= 1)) {
-                gameObject.AddComponent<PathBound>();
-                isOnPath = true;
-            }
-
-        } else {
-            if (direction == -1) // Player facing left, therefore move right
+        if (!isOnPath) 
+        {
+            return;
+        } 
+        else 
+        {
+            if (!hasAddedComponents)
             {
-                rigidBody.velocity = transform.forward * speed;
-            } else 
-            {
-                rigidBody.velocity = transform.forward * speed * -1;
+                putOnPath();
+                hasAddedComponents = true;
+                if (direction == -1) // Player facing left, therefore move right
+                {
+                    gameObject.GetComponent<ObjectOnPath>().move = new Vector2( 1, 0 ) * speed;
+                } 
+                else 
+                {
+                    gameObject.GetComponent<ObjectOnPath>().move = new Vector2( 1, 0 ) * speed * -1;
+                }
             }
         }
+    }
+
+    void putOnPath()
+    {
+        gameObject.AddComponent<PathBound>();
+        gameObject.AddComponent<ObjectOnPath>();
+        gameObject.GetComponent<PathBound>().objectOnPath = gameObject.GetComponent<ObjectOnPath>();
     }
 
     private void OnTriggerEnter(Collider other) {
