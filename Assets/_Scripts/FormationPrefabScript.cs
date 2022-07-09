@@ -6,47 +6,71 @@ using PathCreation;
 public class FormationPrefabScript : MonoBehaviour
 {
     //GettingToPath Vars
-    //private bool isOnPath = false;
-    public GameObject player;
-    private float direction;
-    private bool isOnLeftSide = true;
+    float distance;
+    private GameObject player;
+    private bool isPlayerOnLeft;
     private GameObject path;
-    private PathCreator pathCreator;
     private List<Enemy> enemy;
     [SerializeField] private float speed = 30.0f;
 
-    private void Awake() {
-        direction = player.GetComponent<Player>().orientation;
+    //Points Vars
+    public float multiplier = 1f;
+
+    private void Awake() 
+    {
         path = GameObject.FindWithTag("WorldPath");
-        pathCreator = path.GetComponent<PathCreator>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
     {
-        //isOnPath = false;
-        if (transform.localPosition.x < 0) {
-            isOnLeftSide = true;
-        } else {
-            isOnLeftSide = false;
+        distance = path.GetComponent<GenerateCircle>().radius;
+        if (player.transform.position.x < 0) 
+        {
+            isPlayerOnLeft = true;
+            transform.Rotate(0, 180, 0);
+        } 
+        else 
+        {
+            isPlayerOnLeft = false;
         }
-
     }
+
     void Update()
     {
-        float pathDist = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
-        float distance = transform.position.x - pathCreator.path.GetPointAtDistance(pathDist).x;
-        if (Mathf.Abs(distance) >= 1) {
-            if (isOnLeftSide) {
-                foreach(Transform enemy in transform) {
-                    Rigidbody enemyBody = enemy.GetComponent<Rigidbody>();
-                    enemyBody.velocity = Vector3.right * speed;
+            if (isPlayerOnLeft) 
+            {
+                foreach (Transform enemy in transform) 
+                {
+                    if(Mathf.Abs(distance - enemy.transform.position.x) >= 0.5f)
+                    {
+                        Rigidbody enemyBody = enemy.GetComponent<Rigidbody>();
+                        enemyBody.velocity = Vector3.right * speed;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<Enemy>().isOnPath = true;
+                    }
                 }
-            } else {
-                foreach(Transform enemy in transform) {
-                    Rigidbody enemyBody = enemy.GetComponent<Rigidbody>();
-                    enemyBody.velocity = Vector3.left * speed;
+            } 
+            else 
+            {
+                foreach (Transform enemy in transform) 
+                {
+                    if(Mathf.Abs(distance + enemy.transform.position.x) >= 0.5f)
+                    {
+                        Rigidbody enemyBody = enemy.GetComponent<Rigidbody>();
+                        enemyBody.velocity = Vector3.left * speed;
+                    }
+                    else
+                    {
+                        enemy.GetComponent<Enemy>().isOnPath = true;
+                    }
                 }
             }
-        }
+            if (transform.childCount == 0)
+            {
+                Destroy(gameObject);
+            }
     }
 }
