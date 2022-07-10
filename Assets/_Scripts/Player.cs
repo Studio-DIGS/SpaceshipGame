@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CommandPattern;
 
 public class Player : ObjectOnPath
 {
@@ -10,17 +11,20 @@ public class Player : ObjectOnPath
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
 
-    public Transform bullet;
+    //public Transform bullet;
 
     private bool canDash = true;
     private bool isDashing;
+
+    private FireCommand mainAttack;
+    private float previousFire = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
         points = GetComponent<Points>();
-        points.SetPoints(0);
+        mainAttack = (BasicAttack) ScriptableObject.CreateInstance("BasicAttack");
     }
 
     public float getOrientation()
@@ -37,6 +41,8 @@ public class Player : ObjectOnPath
 
     void _updatePlayer()
     {
+        previousFire += Time.deltaTime;
+        
         if (isDashing)
         {
             return;
@@ -48,9 +54,10 @@ public class Player : ObjectOnPath
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
 
         // Shooting script for player
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
         {
-            fireBullet();
+            mainAttack.Fire(this.GetComponent<Player>());
+            return;
         }
 
         // Dashing script for player
@@ -65,12 +72,14 @@ public class Player : ObjectOnPath
         return;
     }
 
+    /*
     void fireBullet() 
     {
         Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
         float shootDir = playerStats.bulletVelocity * orientation;
         bulletTransform.GetComponent<Bullet>().Setup(shootDir);
     }
+    */
 
     private IEnumerator dash()
     {
@@ -84,5 +93,14 @@ public class Player : ObjectOnPath
 
         yield return new WaitForSeconds(playerStats.dashingCooldown);
         canDash = true;
+    }
+
+public float GetPreviousFire()
+    {
+        return previousFire;
+    }
+    public void SetPreviousFire(float _previousFire)
+    {
+        previousFire = _previousFire;
     }
 }
