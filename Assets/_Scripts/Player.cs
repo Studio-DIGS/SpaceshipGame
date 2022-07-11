@@ -95,12 +95,18 @@ public class Player : ObjectOnPath
         canDash = true;
     }
 
-public float GetPreviousFire()
+    public float GetPreviousFire()
     {
         return previousFire;
     }
+
     public void SetPreviousFire(float _previousFire)
     {
         previousFire = _previousFire;
+    }
+
+    public float GetPlayerSpeed() 
+    {
+        return playerStats.speed;
     }
 }

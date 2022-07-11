@@ -20,7 +20,7 @@ namespace CommandPattern
         if (_player.GetPreviousFire() >= 1/fireRate)
         {
             Bullet projectile = (Bullet) Instantiate (Projectile, _player.transform.localPosition, Quaternion.identity);
-            projectile.Setup(projectileSpeed * _player.orientation);
+            projectile.Setup((_player.GetPlayerSpeed() + projectileSpeed) * _player.orientation);
             _player.SetPreviousFire(0.0f);
         }
     }
