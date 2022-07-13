@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class FloatingStuff : MonoBehaviour
 {
-    public float inRange;
-    public float outRange;
+    public GameObject floatingObject;
+    public int _amount;
+    public float minScale;
+    public float maxScale;
+    public int inRange;
+    public int outRange;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Transform child in transform)
+        for (var i = 0; i < _amount; i++)
         {
-            child.position = Random.insideUnitSphere * Random.Range(inRange, outRange);
-            child.rotation = Random.rotation;
+            Vector3 _pos = Random.insideUnitSphere * Random.Range(inRange, outRange);
+            Quaternion _rot = Random.rotation;
+            var newFloatObject = Instantiate(floatingObject, _pos, _rot);
+            newFloatObject.transform.parent = gameObject.transform;
+            newFloatObject.transform.localScale *= Random.Range(minScale, maxScale);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
+
