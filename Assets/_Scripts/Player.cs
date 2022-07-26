@@ -52,9 +52,8 @@ public class Player : ObjectOnPath
         }
 
         //Gets player movement input and moves ship
-        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
+        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
-        _updateMovement();
 
         // Shooting script for player
         if (Input.GetKey(KeyCode.Z))
@@ -75,6 +74,11 @@ public class Player : ObjectOnPath
         return;
     }
 
+    void FixedUpdate()
+    {
+        _updateMovement();
+    }
+
     void _updateMovement()
     {
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
@@ -82,11 +86,11 @@ public class Player : ObjectOnPath
 
         if (Physics.Raycast(transform.position, Vector3.up, rayDistance, layerMask))
         {
-            move.y = Mathf.Min(move.y, 0);
+            move.y = Mathf.Min(move.y, -1f);
         }
         else if (Physics.Raycast(transform.position, -Vector3.up, rayDistance, layerMask))
         {
-            move.y = Mathf.Max(move.y, 0);
+            move.y = Mathf.Max(move.y, 1f);
         }
     }
 
