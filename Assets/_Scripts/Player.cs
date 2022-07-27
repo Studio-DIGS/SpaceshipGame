@@ -7,6 +7,8 @@ public class Player : ObjectOnPath
 {
     private PlayerStats playerStats;
     private Points points;
+    private HealthSystem healthSystem;
+    public HealthBar healthBar;
 
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
@@ -26,6 +28,8 @@ public class Player : ObjectOnPath
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        healthSystem = new HealthSystem(playerStats.maxHealth);
+        healthBar.Setup(healthSystem);
         points = GetComponent<Points>();
         mainAttack = (BasicAttack) ScriptableObject.CreateInstance("BasicAttack");
     }
