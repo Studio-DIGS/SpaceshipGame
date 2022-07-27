@@ -52,12 +52,15 @@ public class Player : ObjectOnPath
         
         if (isDashing)
         {
+            _checkCollision();
             return;
         }
 
         //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
+        move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
+        _checkCollision();
 
         // Shooting script for player
         if (Input.GetKey(KeyCode.Z))
@@ -78,22 +81,24 @@ public class Player : ObjectOnPath
         return;
     }
 
-    void FixedUpdate()
-    {
-        _updateMovement();
-    }
+    // void FixedUpdate()
+    // {
+    //     _checkCollision();
+    // }
 
-    void _updateMovement()
+    void _checkCollision()
     {
-        move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
+        
         // Debug.DrawRay(transform.position, Vector3.up * rayDistance, Color.yellow);
 
         if (Physics.Raycast(transform.position, Vector3.up, rayDistance, layerMask))
         {
+            if (isDashing) {StopCoroutine(dash());}
             move.y = Mathf.Min(move.y, -1f);
         }
         else if (Physics.Raycast(transform.position, -Vector3.up, rayDistance, layerMask))
         {
+            if (isDashing) {StopCoroutine(dash());}
             move.y = Mathf.Max(move.y, 1f);
         }
     }
