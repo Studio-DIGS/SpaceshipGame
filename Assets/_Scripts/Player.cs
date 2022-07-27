@@ -19,6 +19,9 @@ public class Player : ObjectOnPath
     private FireCommand mainAttack;
     private float previousFire = 0.0f;
 
+    private int layerMask = 1 << 6; // idk what this means but it doesnt work if I just put 6
+    public float rayDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,9 +52,8 @@ public class Player : ObjectOnPath
         }
 
         //Gets player movement input and moves ship
-        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized; // get movement input
+        input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // get movement input
         orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
-        move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
 
         // Shooting script for player
         if (Input.GetKey(KeyCode.Z))
@@ -70,6 +72,26 @@ public class Player : ObjectOnPath
     void _updateParticles()
     {
         return;
+    }
+
+    void FixedUpdate()
+    {
+        _updateMovement();
+    }
+
+    void _updateMovement()
+    {
+        move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
+        // Debug.DrawRay(transform.position, Vector3.up * rayDistance, Color.yellow);
+
+        if (Physics.Raycast(transform.position, Vector3.up, rayDistance, layerMask))
+        {
+            move.y = Mathf.Min(move.y, -1f);
+        }
+        else if (Physics.Raycast(transform.position, -Vector3.up, rayDistance, layerMask))
+        {
+            move.y = Mathf.Max(move.y, 1f);
+        }
     }
 
     /*
