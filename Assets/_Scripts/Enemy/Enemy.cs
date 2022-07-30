@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     private ObjectOnPath enemyMovement;
 
     //Points Vars
+    [SerializeField] int enemyDamage = 1;
     [SerializeField] int pointsWorth = 100;
 
     private void Awake() {
@@ -119,6 +120,15 @@ public class Enemy : MonoBehaviour
         {
             player.GetComponent<Points>().AddPoints((int)Math.Floor(pointsWorth * formationScript.multiplier));
             Debug.Log(player.GetComponent<Points>().GetPoints());
+            Destroy(gameObject);
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            player.GetComponent<Player>().healthSystem.Damage(enemyDamage);
+            if (player.GetComponent<Player>().healthSystem.GetHealth() == 0)
+            {
+                player.transform.GetChild(0).gameObject.SetActive(false);
+            }
             Destroy(gameObject);
         }
     }

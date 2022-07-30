@@ -8,7 +8,7 @@ public class Player : ObjectOnPath
 {
     private PlayerStats playerStats;
     private Points points;
-    private HealthSystem healthSystem;
+    public HealthSystem healthSystem;
     public HealthBar healthBar;
 
     private Vector2 input;    
