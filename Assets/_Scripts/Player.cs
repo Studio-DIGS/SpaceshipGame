@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CommandPattern;
+using PathCreation;
 
 public class Player : ObjectOnPath
 {
@@ -12,6 +13,7 @@ public class Player : ObjectOnPath
 
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
+    private PathCreator pathCreator;
 
     //public Transform bullet;
 
@@ -24,10 +26,13 @@ public class Player : ObjectOnPath
     private int layerMask = 1 << 6; // idk what this means but it doesnt work if I just put 6
     public float rayDistance;
 
+    public float distanceAlongPath;
+
     // Start is called before the first frame update
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+        pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
         healthSystem = new HealthSystem(playerStats.maxHealth);
         healthBar.Setup(healthSystem);
         points = GetComponent<Points>();
@@ -49,6 +54,7 @@ public class Player : ObjectOnPath
     void _updatePlayer()
     {
         previousFire += Time.deltaTime;
+        distanceAlongPath = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
         
         if (isDashing)
         {

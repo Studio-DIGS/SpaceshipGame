@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   isOnPath: 0
+  radius: 10
   pointsWorth: 100
 --- !u!54 &59104963519546493
 Rigidbody:

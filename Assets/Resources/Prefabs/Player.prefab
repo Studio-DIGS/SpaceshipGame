@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   move: {x: 0, y: 0}
+  healthBar: {fileID: 0}
   orientation: 1
   rayDistance: 1.5
 --- !u!114 &3018681973087351007
@@ -241,7 +242,7 @@ GameObject:
   - component: {fileID: 3222263407973953000}
   m_Layer: 0
   m_Name: spaceship
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
