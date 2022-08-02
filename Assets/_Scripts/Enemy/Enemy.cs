@@ -33,6 +33,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] int enemyDamage = 1;
     [SerializeField] int pointsWorth = 100;
 
+    // Particles
+    public ParticleSystem explosion;
+
     private void Awake() {
         player = GameObject.Find("Player");
         formationScript = transform.parent.GetComponent<FormationPrefabScript>();
@@ -120,7 +123,8 @@ public class Enemy : MonoBehaviour
         {
             player.GetComponent<Points>().AddPoints((int)Math.Floor(pointsWorth * formationScript.multiplier));
             Debug.Log(player.GetComponent<Points>().GetPoints());
-            Destroy(gameObject);
+            
+            Death();
         }
         if (other.gameObject.tag == "Player")
         {
@@ -129,7 +133,8 @@ public class Enemy : MonoBehaviour
             {
                 player.transform.GetChild(0).gameObject.SetActive(false);
             }
-            Destroy(gameObject);
+
+            Death();
         }
     }
 
@@ -139,7 +144,17 @@ public class Enemy : MonoBehaviour
         {
             Destroy(detectionCircle);
             isChasingPlayer = true;
-            //Debug.Log("Player in radius");
         }
+    }
+
+    private void Death() 
+    {
+        Debug.Log("Enemy has literally died");
+        PlayExplosionParticles();
+        Destroy(gameObject, 0.2f);
+    }
+
+    private void PlayExplosionParticles() {
+        explosion.Play();
     }
 }

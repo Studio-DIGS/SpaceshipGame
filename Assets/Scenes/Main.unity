@@ -391,6 +391,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7656408100096781608, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Range
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656408100096781608, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656408100096781608, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656408100096781608, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656408100096781608, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Intensity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8736954253521297192, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: points
       value: 0
