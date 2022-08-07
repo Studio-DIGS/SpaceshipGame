@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     private ObjectOnPath enemyMovement;
 
     //Points Vars
+    public int health = 3;
     [SerializeField] int enemyDamage = 1;
     [SerializeField] int pointsWorth = 100;
 
@@ -44,6 +45,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        
         if (isChasingPlayer)
         {   
             float enemyDistance = pathCreator.path.GetClosestDistanceAlongPath(this.gameObject.transform.position);
@@ -71,6 +73,7 @@ public class Enemy : MonoBehaviour
 
             return;
         }
+        
 
         if (!isOnPath) 
         {
@@ -118,9 +121,14 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
-            player.GetComponent<Points>().AddPoints((int)Math.Floor(pointsWorth * formationScript.multiplier));
-            Debug.Log(player.GetComponent<Points>().GetPoints());
-            Destroy(gameObject);
+            Destroy(other.gameObject);
+            health--;
+            if (health <= 0)
+            {
+                player.GetComponent<Points>().AddPoints((int)Math.Floor(pointsWorth * formationScript.multiplier));
+                Debug.Log(player.GetComponent<Points>().GetPoints());
+                Destroy(gameObject);  
+            }
         }
         if (other.gameObject.tag == "Player")
         {
@@ -132,7 +140,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
     private void OnTriggerEnter(Collider other) 
     {
         if (other.gameObject.tag == player.gameObject.tag)
@@ -142,4 +150,20 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Player in radius");
         }
     }
+    
+    /*
+    private void OnTriggerStay(Collider other) 
+    {
+        if (other.gameObject.tag == player.gameObject.tag)
+        {
+            ChasePlayer(other.gameObject);
+        }
+    }
+
+    private void ChasePlayer(GameObject _player)
+    {
+        Vector3 chaseDirection = transform.position - _player.transform.position;
+        enemyMovement.move = chaseDirection;
+    }
+    */
 }

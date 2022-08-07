@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3018681972834586134}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 30, y: 0, z: 0}
+  m_LocalPosition: {x: 40, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -156,6 +156,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   orientation: 1
   rayDistance: 1.5
+  distanceAlongPath: 0
 --- !u!114 &3018681973087351007
 MonoBehaviour:
   m_ObjectHideFlags: 0

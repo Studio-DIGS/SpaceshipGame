@@ -323,6 +323,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: speed
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: dashingTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: acceleration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3018681972834586134, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -432,14 +444,17 @@ MonoBehaviour:
   - {fileID: 4566986078494422139, guid: 25bc9d959162bce4fad71ae4b4916218, type: 3}
   waves:
   - name: FirstWave
-    count: 1
-    rate: 1
+    count: 5
+    rate: 0.5
   - name: SecondWave
-    count: 2
+    count: 9
     rate: 1.5
   - name: FinalWave
-    count: 3
+    count: 13
     rate: 2
+  minimumHeight: -30
+  maximumHeight: 30
+  baseWaveMultipler: 2
   timeBetweenWaves: 5
   waveCountdown: 0
 --- !u!4 &894363491
@@ -1001,6 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit

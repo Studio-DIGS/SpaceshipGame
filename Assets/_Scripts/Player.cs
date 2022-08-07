@@ -8,6 +8,7 @@ public class Player : ObjectOnPath
 {
     private PlayerStats playerStats;
     private Points points;
+    [SerializeField] Camera playerCamera;
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 

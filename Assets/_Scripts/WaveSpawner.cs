@@ -21,6 +21,10 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     public Wave[] waves;
     private int nextWave = 0;
 
+    public float minimumHeight = -30f;
+    public float maximumHeight = 30f;
+
+    public float baseWaveMultipler = 5f;
     public float timeBetweenWaves = 5f;
     public float waveCountdown;
 
@@ -102,7 +106,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         {
             SpawnEnemy(enemyList[enemyIndex]);
             enemyIndex = Random.Range(0, enemyList.Length);
-            yield return new WaitForSeconds( 1f / _wave.rate );
+            yield return new WaitForSeconds( 1f / (_wave.rate * baseWaveMultipler) );
         }
 
         state = SpawnState.WAITING;
@@ -113,6 +117,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     void SpawnEnemy(Transform _enemy)
     {
         Debug.Log("Spawning Enemy: " + _enemy);
-        Instantiate(_enemy, transform.position, transform.rotation);
+        Vector3 spawnLocation = new Vector3(0, Random.Range(minimumHeight, maximumHeight), 0);
+        Instantiate(_enemy, spawnLocation, transform.rotation);
     }
 }
