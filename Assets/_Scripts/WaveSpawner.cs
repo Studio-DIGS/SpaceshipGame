@@ -24,24 +24,28 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     public float minimumHeight = -30f;
     public float maximumHeight = 30f;
 
+    public float initialWaitTimer = 3f;
     public float baseWaveMultipler = 5f;
     public float timeBetweenWaves = 5f;
+    public float maxTimeIdlingWaves = 10f;
     public float waveCountdown;
 
+    private float timeIdlingWaves;
     private float searchCountdown = 1f;
 
     private SpawnState state = SpawnState.COUNTING;
 
     private void Start() 
     {
-        waveCountdown = timeBetweenWaves;
+        timeIdlingWaves = maxTimeIdlingWaves;
+        waveCountdown = initialWaitTimer;
     }
 
     private void Update() 
     {
         if (state == SpawnState.WAITING)
         {
-            if (!EnemyIsAlive())
+            if (!EnemyIsAlive() || TimeRunsOut())
             {
                 WaveCompleted();
             }
@@ -68,6 +72,8 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     void WaveCompleted()
     {
         Debug.Log("Wave Completed!");
+
+        timeIdlingWaves = maxTimeIdlingWaves;
 
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
@@ -119,5 +125,18 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         Debug.Log("Spawning Enemy: " + _enemy);
         Vector3 spawnLocation = new Vector3(0, Random.Range(minimumHeight, maximumHeight), 0);
         Instantiate(_enemy, spawnLocation, transform.rotation);
+    }
+
+    bool TimeRunsOut()
+    {
+        timeIdlingWaves -= Time.deltaTime;
+        if (timeIdlingWaves <= 0f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

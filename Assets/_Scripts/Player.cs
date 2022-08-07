@@ -8,7 +8,7 @@ public class Player : ObjectOnPath
 {
     private PlayerStats playerStats;
     private Points points;
-    [SerializeField] Camera playerCamera;
+    public Camera playerCamera;
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 
@@ -65,19 +65,22 @@ public class Player : ObjectOnPath
 
         //Gets player movement input and moves ship
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")); // get movement input
-        orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
+        if (!Input.GetButton("LockOrientation"))
+        {
+            orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
+        }
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
         _checkCollision();
 
         // Shooting script for player
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetButton("Fire1"))
         {
             mainAttack.Fire(this.GetComponent<Player>());
             return;
         }
 
         // Dashing script for player
-        if (Input.GetKeyDown(KeyCode.X) && canDash)
+        if (Input.GetButton("Dash") && canDash)
         {
             StartCoroutine(dash());
         }

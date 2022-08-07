@@ -7,8 +7,7 @@ public class FormationPrefabScript : MonoBehaviour
 {
     //GettingToPath Vars
     float distance;
-    private GameObject player;
-    private bool isPlayerOnLeft;
+    private bool isOnLeft;
     private GameObject path;
     private List<Enemy> enemy;
     [SerializeField] private float speed = 30.0f;
@@ -19,26 +18,26 @@ public class FormationPrefabScript : MonoBehaviour
     private void Awake() 
     {
         path = GameObject.FindWithTag("WorldPath");
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
     {
         distance = path.GetComponent<GenerateCircle>().radius;
-        if (player.transform.position.x < 0) 
+        int spawnLeft = Random.Range(0, 2);
+        if (spawnLeft != 0) 
         {
-            isPlayerOnLeft = true;
+            isOnLeft = true;
             transform.Rotate(0, 180, 0);
         } 
         else 
         {
-            isPlayerOnLeft = false;
+            isOnLeft = false;
         }
     }
 
     void Update()
     {
-            if (isPlayerOnLeft) 
+            if (isOnLeft) 
             {
                 foreach (Transform enemy in transform) 
                 {

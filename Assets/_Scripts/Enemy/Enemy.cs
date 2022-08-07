@@ -126,7 +126,6 @@ public class Enemy : MonoBehaviour
             if (health <= 0)
             {
                 player.GetComponent<Points>().AddPoints((int)Math.Floor(pointsWorth * formationScript.multiplier));
-                Debug.Log(player.GetComponent<Points>().GetPoints());
                 Destroy(gameObject);  
             }
         }
