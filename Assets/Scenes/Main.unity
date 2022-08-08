@@ -178,6 +178,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57e50cde359d84fa0bd747a578ee338f, type: 3}
   m_PrefabInstance: {fileID: 1545888208}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &139368380 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3018681972834586132, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+  m_PrefabInstance: {fileID: 812272817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &288757233
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +392,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 2075909099}
+    - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 139368380}
     - target: {fileID: 3018681973087350999, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: m_Name
       value: Player
@@ -454,8 +463,10 @@ MonoBehaviour:
     rate: 2
   minimumHeight: -30
   maximumHeight: 30
+  initialWaitTimer: 3
   baseWaveMultipler: 2
   timeBetweenWaves: 5
+  maxTimeIdlingWaves: 10
   waveCountdown: 0
 --- !u!4 &894363491
 Transform:
