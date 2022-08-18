@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3018681973087350998}
   - component: {fileID: 3018681973087351007}
   - component: {fileID: 6185635107629635752}
+  - component: {fileID: 8324538939942055852}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -152,7 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93f4279d658a3e41abe634526ec2b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPath: 0
   move: {x: 0, y: 0}
+  playerCamera: {fileID: 0}
   healthBar: {fileID: 0}
   orientation: 1
   rayDistance: 1.5
@@ -170,6 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectOnPath: {fileID: 3018681973087350998}
+  distance: 0
+  height: 0
 --- !u!114 &6185635107629635752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +187,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db4d6a3d2cad294091aa5fb463988f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &8324538939942055852
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018681973087350999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.41
+  m_Height: 3.49
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.42, z: 1.32}
 --- !u!1 &7306208438938572974
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +259,6 @@ GameObject:
   - component: {fileID: 8107496112345809686}
   - component: {fileID: 5128552514726431923}
   - component: {fileID: 6974017669874088057}
-  - component: {fileID: 3222263407973953000}
   m_Layer: 0
   m_Name: spaceship
   m_TagString: Player
@@ -313,17 +331,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3222263407973953000
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8919463100970424748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.43
-  m_Height: 2.68
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.12, z: -0.18}

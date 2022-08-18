@@ -32,6 +32,7 @@ public class Player : ObjectOnPath
     // Start is called before the first frame update
     void Start()
     {
+        onPath = true;
         playerStats = GetComponent<PlayerStats>();
         pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
         healthSystem = new HealthSystem(playerStats.maxHealth);

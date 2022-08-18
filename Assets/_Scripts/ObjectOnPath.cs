@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class ObjectOnPath : MonoBehaviour
 {
-    public Vector2 move;
+    public bool onPath;
+    [HideInInspector] public Vector3 target;
+    [HideInInspector] public Vector2 move, targetDir;
 }

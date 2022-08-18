@@ -43,12 +43,11 @@ public class FormationPrefabScript : MonoBehaviour
                 {
                     if(Mathf.Abs(distance - enemy.transform.position.x) >= 0.5f)
                     {
-                        Rigidbody enemyBody = enemy.GetComponent<Rigidbody>();
-                        enemyBody.velocity = Vector3.right * speed;
+                        enemy.transform.position += Vector3.right * speed * Time.deltaTime;
                     }
                     else
                     {
-                        enemy.GetComponent<Enemy>().isOnPath = true;
+                        // enemy.GetComponent<Enemy1>().BeginPathing();
                     }
                 }
             } 
@@ -58,12 +57,11 @@ public class FormationPrefabScript : MonoBehaviour
                 {
                     if(Mathf.Abs(distance + enemy.transform.position.x) >= 0.5f)
                     {
-                        Rigidbody enemyBody = enemy.GetComponent<Rigidbody>();
-                        enemyBody.velocity = Vector3.left * speed;
+                        enemy.transform.position += Vector3.left * speed * Time.deltaTime;
                     }
                     else
                     {
-                        enemy.GetComponent<Enemy>().isOnPath = true;
+                        // enemy.GetComponent<Enemy1>().BeginPathing();
                     }
                 }
             }
