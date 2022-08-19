@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3018681972834586131}
   - component: {fileID: 3018681972834586132}
   - component: {fileID: 3018681972834586133}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3018681973087351007}
   - component: {fileID: 6185635107629635752}
   - component: {fileID: 8324538939942055852}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -154,7 +154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onPath: 0
+  target: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
+  targetDir: {x: 0, y: 0}
   playerCamera: {fileID: 0}
   healthBar: {fileID: 0}
   orientation: 1
@@ -211,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6706882111613654596}
   - component: {fileID: 3680069972182737173}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShipModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +261,7 @@ GameObject:
   - component: {fileID: 8107496112345809686}
   - component: {fileID: 5128552514726431923}
   - component: {fileID: 6974017669874088057}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: spaceship
   m_TagString: Player
   m_Icon: {fileID: 0}

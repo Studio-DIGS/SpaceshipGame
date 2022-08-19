@@ -6,16 +6,18 @@ public class Enemy1 : EnemyClass
 {
     public bool isChasing;
     private Vector2 moveDirection;
+    public float detectionRadius;
+    public LayerMask targetMask;
+    private Transform targetTransform;
 
     void Update()
     {
         if (!onPath)
         {
-            MoveToPath();
+            MoveToPath(); // this function is found in EnemyClass
         }
         else
         {
-            target = player.transform.position;
             if (isChasing) {Chase();}
             else {Wander();}
 
@@ -25,20 +27,27 @@ public class Enemy1 : EnemyClass
 
     private void Wander()
     {
-        // if (Mathf.Abs(distanceToTarget) <= detectionDistance)
-        // {
-        //     isChasing = true;
-        // }
-        // else
-        // {
-        //     target = new Vector2(initialDirection, 0f);
-        // }
         moveDirection = new Vector2(initialDirection, 0f);
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, targetMask);
+        if (hits.Length != 0)
+        {
+            targetTransform = hits[0].transform;
+            isChasing = true;
+        }
     }
 
     private void Chase()
     {
+        target = targetTransform.position;
         moveDirection = targetDir;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            
+        }
+    }
 }

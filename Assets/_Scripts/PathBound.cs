@@ -8,6 +8,9 @@ public class PathBound : MonoBehaviour
     private GameObject path;
     private PathCreator pathCreator;
     public ObjectOnPath objectOnPath;
+    private Vector2 move;
+    public float collisionSphereRadius = 4.0f;
+    public LayerMask layerMask;
     private Vector2 targetDir;
 
     [HideInInspector] public float distance, height;
@@ -28,9 +31,11 @@ public class PathBound : MonoBehaviour
         {
             if (objectOnPath.onPath)
             {
-                Vector2 move = objectOnPath.move;
-                distance += move.x * Time.deltaTime;
-                height += move.y * Time.deltaTime;
+                this.move = objectOnPath.move;
+                CheckCollision();
+
+                distance += this.move.x * Time.deltaTime;
+                height += this.move.y * Time.deltaTime;
 
                 Vector3 pathPos = pathCreator.path.GetPointAtDistance(distance);
                 transform.position = new Vector3(pathPos.x, height, pathPos.z);
@@ -39,30 +44,45 @@ public class PathBound : MonoBehaviour
 
             if (objectOnPath.target != null)
             {
-                GetTargetVector(objectOnPath.target);
-                objectOnPath.targetDir = this.targetDir;
+                objectOnPath.targetDir = GetTargetVector(objectOnPath.target);
             }
         }
         
     }
 
-    void GetTargetVector(Vector3 objectPos)
+    private void CheckCollision()
     {
+        Collider[] hits = Physics.OverlapSphere(transform.position, collisionSphereRadius, layerMask);
+        foreach (var hit in hits)
+        {
+            move -= GetTargetVector(hit.transform.position);
+        }
+    }
+
+    public Vector2 GetTargetVector(Vector3 objectPos)
+    {
+        Vector2 targetVector;
         Vector3 delta = objectPos - transform.position;
         Vector3 tangent = pathCreator.path.GetDirectionAtDistance(distance);
 
         float angle = Vector3.Angle(tangent, delta);
         if (angle <= 90f)
         {
-            targetDir.x = 1;
+            targetVector.x = 1;
         }
         else
         {
-            targetDir.x = -1;
+            targetVector.x = -1;
         }
 
-        targetDir.y = Mathf.Clamp(delta.y, -1, 1);
+        targetVector.y = Mathf.Clamp(delta.y, -1, 1);
 
-        // return targetDir;
+        return targetVector;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, collisionSphereRadius);
     }
 }
