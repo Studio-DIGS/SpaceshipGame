@@ -8,6 +8,7 @@ public class EnemyClass : ObjectOnPath
     public int maxHealth;
     public float speed;
     public float acceleration;
+    public int damage;
 
     public HealthSystem healthSystem;
     public HealthBar healthBar;
@@ -36,12 +37,6 @@ public class EnemyClass : ObjectOnPath
         FindPointOnPath();
     }
 
-    // public void BeginPathing()
-    // {
-    //     initialDirection = -1 * player.GetComponent<Player>().getOrientation();
-    //     onPath = true;
-    // }
-
     private void FindPointOnPath()
     {
         float playerDistance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
@@ -59,6 +54,20 @@ public class EnemyClass : ObjectOnPath
             GetComponent<PathBound>().enabled = true;
             initialDirection = -1 * player.GetComponent<Player>().getOrientation();
             onPath = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "PlayerProjectile")
+        {
+            Destroy(other.gameObject);
+            this.healthSystem.Damage(1);
+            if (this.healthSystem.GetHealth() <= 0)
+            {
+                // Death explosion goes here
+                Destroy(this.gameObject);
+            }
         }
     }
 }

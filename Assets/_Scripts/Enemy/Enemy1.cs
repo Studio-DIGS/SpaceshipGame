@@ -42,12 +42,4 @@ public class Enemy1 : EnemyClass
         target = targetTransform.position;
         moveDirection = targetDir;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            
-        }
-    }
 }

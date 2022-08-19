@@ -60,7 +60,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80c9832cbf839d479af3eb706292b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPath: 1
+  target: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
+  targetDir: {x: 0, y: 0}
 --- !u!114 &-6367094155261770582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,6 +77,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectOnPath: {fileID: 3509433501710236067}
+  collisionSphereRadius: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  distance: 0
+  height: 0
 --- !u!1 &8696689889088406263
 GameObject:
   m_ObjectHideFlags: 0

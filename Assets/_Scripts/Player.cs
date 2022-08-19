@@ -20,6 +20,7 @@ public class Player : ObjectOnPath
 
     private bool canDash = true;
     private bool isDashing;
+    private bool invincible;
 
     private FireCommand mainAttack;
     private float previousFire = 0.0f;
@@ -122,6 +123,7 @@ public class Player : ObjectOnPath
         bulletTransform.GetComponent<Bullet>().Setup(shootDir);
     }
     */
+
 
     private IEnumerator dash()
     {
