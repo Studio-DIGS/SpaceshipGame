@@ -333,10 +333,6 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
-      propertyPath: dashingTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: acceleration
       value: 10
       objectReference: {fileID: 0}
@@ -387,6 +383,10 @@ PrefabInstance:
     - target: {fileID: 3018681973087350993, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: onPath
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: healthBar
@@ -1144,7 +1144,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1
