@@ -8,12 +8,11 @@ public class EnemyClass : ObjectOnPath
     public int maxHealth;
     public float speed;
     public float acceleration;
-    public int damage;
 
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 
-    public GameObject player;
+    private GameObject player;
     [HideInInspector] public float initialDirection;
     [HideInInspector] public Vector3 spawnPoint;
 
