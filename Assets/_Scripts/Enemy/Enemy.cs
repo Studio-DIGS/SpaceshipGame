@@ -151,7 +151,8 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Enemy has literally died");
         PlayExplosionParticles();
-        Destroy(gameObject, 0.2f);
+        gameObject.transform.localScale = new Vector3(0, 0, 0);
+        Destroy(gameObject, 3);
     }
 
     private void PlayExplosionParticles() {
