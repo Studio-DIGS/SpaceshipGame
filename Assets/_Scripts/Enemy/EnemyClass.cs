@@ -62,7 +62,7 @@ public class EnemyClass : ObjectOnPath
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile" || other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerProjectile")
         {
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);

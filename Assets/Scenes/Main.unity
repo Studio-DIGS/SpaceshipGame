@@ -474,11 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList:
-  - {fileID: 1681354049500942220, guid: e34b7eea7ac97704cbf01f43b2ac28f0, type: 3}
-  - {fileID: 5228496359789555681, guid: 3452384f6e781034faf4f5cab39eb223, type: 3}
-  - {fileID: 4566986078494422139, guid: 25bc9d959162bce4fad71ae4b4916218, type: 3}
-  - {fileID: 6351499620182799951, guid: 6f64388a72bf4c647b54cc6504583713, type: 3}
-  - {fileID: 6351499620182799951, guid: a33299de1877bdf499626831092097c7, type: 3}
+  - {fileID: 6351499620182799951, guid: 14438ff148e36d0458400bde510c3924, type: 3}
   waves:
   - name: FirstWave
     count: 5

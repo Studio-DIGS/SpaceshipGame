@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMesh : MonoBehaviour
 {
@@ -38,7 +39,8 @@ public class PlayerMesh : MonoBehaviour
             if (player.healthSystem.GetHealth() <= 0)
             {
                 // Death explosion goes here
-                Destroy(player.gameObject);
+                SceneManager.LoadScene("GameOver");
+                //Destroy(player.gameObject);
             }
 
             StartCoroutine(iFrames());
