@@ -31,7 +31,8 @@ public class PlayerMesh : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && invincible == false)
+        Debug.Log(other.gameObject.tag);
+        if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && invincible == false)
         {
             player.healthSystem.Damage(1);
             if (player.healthSystem.GetHealth() <= 0)

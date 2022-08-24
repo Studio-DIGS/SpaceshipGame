@@ -39,7 +39,7 @@ public class EnemyClass : ObjectOnPath
     private void FindPointOnPath()
     {
         float playerDistance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
-        float enemySpawnDistance = Mathf.Abs(playerDistance - 180f);
+        float enemySpawnDistance = Mathf.Abs(playerDistance - 180f); // TODO: Spawn Enemy across from player
         spawnPoint = pathCreator.path.GetPointAtDistance(enemySpawnDistance);
         spawnPoint.y = transform.position.y;
     }

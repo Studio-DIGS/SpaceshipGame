@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DespawnTimer : MonoBehaviour
 {
-    public int time;
+    [SerializeField] float time;
     // Start is called before the first frame update
     void Start()
     {

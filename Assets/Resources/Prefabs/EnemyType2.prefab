@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6351499620182799951}
   - component: {fileID: 5523736302601888828}
-  - component: {fileID: -1519358537869253379}
+  - component: {fileID: 1795013127916976674}
   - component: {fileID: 9140466409871676188}
   - component: {fileID: 5334704532380575443}
   m_Layer: 8
-  m_Name: BigEnemy0
+  m_Name: EnemyType2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.4
   m_Center: {x: 0, y: -0.3, z: 0}
---- !u!114 &-1519358537869253379
+--- !u!114 &1795013127916976674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 45481856658845250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbff0e74587ea74b85a9ae9e5c94c64, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ba41ab1512f25c4e8dca4dc15a7b40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onPath: 0
@@ -67,10 +67,12 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0}
   maxHealth: 5
   speed: 10
-  acceleration: 1.5
+  acceleration: 1
   healthBar: {fileID: 0}
   initialDirection: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  projectileSpeed: 25
+  shootingCooldown: 2.5
 --- !u!114 &9140466409871676188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b78c552fca666c4eb6e7cb45d0ab4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectOnPath: {fileID: -1519358537869253379}
+  objectOnPath: {fileID: 1795013127916976674}
   collisionSphereRadius: 4
   layerMask:
     serializedVersion: 2
@@ -184,7 +186,7 @@ PrefabInstance:
     - target: {fileID: 6317578925029434746, guid: a7be1bd82b254e64e8c45f4d61c47396, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3f90142e8a2283f43af63d11cb6115b5, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d76edf465cba8c4a9536a5e4dd69b17, type: 2}
     - target: {fileID: 8416272007918961125, guid: a7be1bd82b254e64e8c45f4d61c47396, type: 3}
       propertyPath: m_Layer
       value: 8
