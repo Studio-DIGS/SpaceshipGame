@@ -42,4 +42,30 @@ public class Enemy1 : EnemyClass
         target = targetTransform.position;
         moveDirection = targetDir;
     }
+
+    private void OnTriggerEnter(Collider other) //Overrides EnemyClass OnTriggerEnter
+    {
+        if (other.gameObject.tag == "PlayerProjectile")
+        {
+            Destroy(other.gameObject);
+            this.healthSystem.Damage(1);
+            if (this.healthSystem.GetHealth() <= 0)
+            {
+                // Death explosion goes here
+                Destroy(this.gameObject);
+            }
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            StartCoroutine(DeathAnimation()); //Insert Kamikaze explosion here
+        }
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        Destroy(GetComponent<SphereCollider>()); //This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
+        //Insert Kamikaze explosion here
+        yield return new WaitForSeconds(1.0f);
+        Destroy(this.gameObject);
+    }
 }

@@ -39,7 +39,11 @@ public class EnemyClass : ObjectOnPath
     private void FindPointOnPath()
     {
         float playerDistance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
-        float enemySpawnDistance = Mathf.Abs(playerDistance - 180f); // TODO: Spawn Enemy across from player
+        float enemySpawnDistance = playerDistance - 180f;
+        if (enemySpawnDistance <= 0f)
+        {
+            enemySpawnDistance = playerDistance + 180f;
+        }
         spawnPoint = pathCreator.path.GetPointAtDistance(enemySpawnDistance);
         spawnPoint.y = transform.position.y;
     }
@@ -58,7 +62,7 @@ public class EnemyClass : ObjectOnPath
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerProjectile")
+        if (other.gameObject.tag == "PlayerProjectile" || other.gameObject.tag == "Player")
         {
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);

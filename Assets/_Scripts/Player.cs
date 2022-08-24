@@ -25,7 +25,7 @@ public class Player : ObjectOnPath
     private FireCommand mainAttack;
     private float previousFire = 0.0f;
 
-    private int layerMask = 1 << 6; // idk what this means but it doesnt work if I just put 6
+    private int layerMask; // Layer on Barrier
     public float rayDistance;
 
     public float distanceAlongPath;
@@ -39,6 +39,7 @@ public class Player : ObjectOnPath
         healthBar.Setup(healthSystem);
         points = GetComponent<Points>();
         mainAttack = (BasicAttack) ScriptableObject.CreateInstance("BasicAttack");
+        layerMask = LayerMask.NameToLayer("Barrier");
     }
 
     public float getOrientation()
@@ -100,7 +101,7 @@ public class Player : ObjectOnPath
     void _checkCollision()
     {
         
-        // Debug.DrawRay(transform.position, Vector3.up * rayDistance, Color.yellow);
+        Debug.DrawRay(transform.position, Vector3.up * rayDistance, Color.yellow);
 
         if (Physics.Raycast(transform.position, Vector3.up, rayDistance, layerMask))
         {
