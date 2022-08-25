@@ -6,6 +6,7 @@ using PathCreation;
 
 public class Player : ObjectOnPath
 {
+    [SerializeField] PlayerMesh playerMesh;
     private PlayerStats playerStats;
     private Points points;
     public Camera playerCamera;
@@ -115,15 +116,6 @@ public class Player : ObjectOnPath
         }
     }
 
-    /*
-    void fireBullet() 
-    {
-        Transform bulletTransform = Instantiate(bullet, transform.position, Quaternion.identity, transform.parent);
-        float shootDir = playerStats.bulletVelocity * orientation;
-        bulletTransform.GetComponent<Bullet>().Setup(shootDir);
-    }
-    */
-
 
     private IEnumerator dash()
     {
@@ -137,6 +129,11 @@ public class Player : ObjectOnPath
 
         yield return new WaitForSeconds(playerStats.dashingCooldown);
         canDash = true;
+    }
+
+    public void TakeDamage()
+    {
+        playerMesh.TakeDamage();
     }
 
     public float GetPreviousFire()

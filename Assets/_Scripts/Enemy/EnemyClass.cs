@@ -12,7 +12,7 @@ public class EnemyClass : ObjectOnPath
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 
-    private GameObject player;
+    protected GameObject player;
     [HideInInspector] public float initialDirection;
     [HideInInspector] public Vector3 spawnPoint;
 
