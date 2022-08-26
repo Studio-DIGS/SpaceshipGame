@@ -446,6 +446,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3909972480923119631, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: cameraShake
+      value: 
+      objectReference: {fileID: 1703431487}
     - target: {fileID: 8736954253521297192, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: points
       value: 0
@@ -490,20 +494,20 @@ MonoBehaviour:
   - {fileID: 8913709201232531215, guid: 6b70fce1150b122489d70186aeafb00f, type: 3}
   waves:
   - name: FirstWave
-    count: 5
-    rate: 0.5
-  - name: SecondWave
-    count: 9
-    rate: 1.5
-  - name: FinalWave
-    count: 13
+    count: 10
     rate: 2
+  - name: SecondWave
+    count: 20
+    rate: 4
+  - name: FinalWave
+    count: 30
+    rate: 6
   minimumHeight: -30
   maximumHeight: 30
-  initialWaitTimer: 3
+  initialWaitTimer: 1
   baseWaveMultipler: 2
-  timeBetweenWaves: 5
-  maxTimeIdlingWaves: 10
+  timeBetweenWaves: 3
+  maxTimeIdlingWaves: 15
   waveCountdown: 0
 --- !u!4 &894363491
 Transform:
