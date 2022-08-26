@@ -31,6 +31,7 @@ public class Player : ObjectOnPath
 
     public float distanceAlongPath;
 
+
     // Start is called before the first frame update
     void Start()
     {

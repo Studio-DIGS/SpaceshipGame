@@ -423,6 +423,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1063679593}
     - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: cameraShake
+      value: 
+      objectReference: {fileID: 1703431487}
+    - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 139368380}
@@ -1131,6 +1135,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1703431484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3018681972834586134, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+  m_PrefabInstance: {fileID: 812272817}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1703431487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703431484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8804caf19f0c9f5738e9f9ce7a4ce43e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1864152931
 GameObject:
   m_ObjectHideFlags: 0
