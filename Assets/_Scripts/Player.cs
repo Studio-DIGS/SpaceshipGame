@@ -120,6 +120,7 @@ public class Player : ObjectOnPath
 
     private IEnumerator dash()
     {
+        //TODO: Add IFrames to Dash
         canDash = false;
         isDashing = true;
 

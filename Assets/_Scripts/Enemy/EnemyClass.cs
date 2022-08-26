@@ -68,6 +68,8 @@ public class EnemyClass : ObjectOnPath
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
+                //Death SFX Here
+
                 // Death explosion goes here
                 Destroy(this.gameObject);
             }
