@@ -6,15 +6,20 @@ using PathCreation;
 
 public class Bullet : ObjectOnPath
 {
-    private float shootDir;
+    private Vector2 movementDirection;
 
-    public void Setup(float shootDir)
+    public void Setup(float xSpeed)
     {
-        this.shootDir = shootDir;
+        movementDirection = new Vector2(xSpeed, 0);
+    }
+    
+    public void Setup(float xSpeed, float ySpeed)
+    {
+        movementDirection = new Vector2(xSpeed, ySpeed);
     }
 
     void Update()
     {
-        move.x = shootDir;
+        move = movementDirection;
     }
 }

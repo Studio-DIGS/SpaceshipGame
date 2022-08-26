@@ -12,7 +12,7 @@ public class EnemyClass : ObjectOnPath
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 
-    private GameObject player;
+    protected GameObject player;
     [HideInInspector] public float initialDirection;
     [HideInInspector] public Vector3 spawnPoint;
 
@@ -39,7 +39,11 @@ public class EnemyClass : ObjectOnPath
     private void FindPointOnPath()
     {
         float playerDistance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
-        float enemySpawnDistance = Mathf.Abs(playerDistance - 180f);
+        float enemySpawnDistance = playerDistance - 180f;
+        if (enemySpawnDistance <= 0f)
+        {
+            enemySpawnDistance = playerDistance + 180f;
+        }
         spawnPoint = pathCreator.path.GetPointAtDistance(enemySpawnDistance);
         spawnPoint.y = transform.position.y;
     }

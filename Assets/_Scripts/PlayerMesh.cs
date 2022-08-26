@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMesh : MonoBehaviour
 {
@@ -31,16 +32,10 @@ public class PlayerMesh : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && invincible == false)
+        Debug.Log(other.gameObject.tag);
+        if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && invincible == false)
         {
-            player.healthSystem.Damage(1);
-            if (player.healthSystem.GetHealth() <= 0)
-            {
-                // Death explosion goes here
-                Destroy(player.gameObject);
-            }
-
-            StartCoroutine(iFrames());
+            TakeDamage();
         }
     }
 
@@ -55,5 +50,18 @@ public class PlayerMesh : MonoBehaviour
             yield return new WaitForSeconds(iFrameTime / (numberOfFlashes * 2));
         }
         invincible = false;
+    }
+
+    public void TakeDamage()
+    {
+        player.healthSystem.Damage(1);
+        if (player.healthSystem.GetHealth() <= 0)
+        {
+            // Death explosion goes here
+            SceneManager.LoadScene("GameOver");
+            //Destroy(player.gameObject);
+        }
+
+        StartCoroutine(iFrames());
     }
 }

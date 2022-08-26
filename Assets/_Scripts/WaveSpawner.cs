@@ -71,7 +71,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
     void WaveCompleted()
     {
-        Debug.Log("Wave Completed!");
+        //Debug.Log("Wave Completed!");
 
         timeIdlingWaves = maxTimeIdlingWaves;
 
@@ -81,7 +81,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         if (nextWave + 1 > waves.Length - 1)
         {
             nextWave = 0;
-            Debug.Log("All waves complete! Looping.");
+            //Debug.Log("All waves complete! Looping.");
             return;
         }
 
@@ -105,7 +105,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
     IEnumerator SpawnWave(Wave _wave)
     {
-        Debug.Log("Spawning Wave: " + _wave.name);
+        //Debug.Log("Spawning Wave: " + _wave.name);
         state = SpawnState.SPAWNING;
 
         for (int i = 0; i < _wave.count; i++)
@@ -122,7 +122,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
     void SpawnEnemy(Transform _enemy)
     {
-        Debug.Log("Spawning Enemy: " + _enemy);
+        //Debug.Log("Spawning Enemy: " + _enemy);
         Vector3 spawnLocation = new Vector3(0, Random.Range(minimumHeight, maximumHeight), 0);
         Instantiate(_enemy, spawnLocation, transform.rotation);
     }
