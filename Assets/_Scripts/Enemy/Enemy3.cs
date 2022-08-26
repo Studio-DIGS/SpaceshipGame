@@ -96,6 +96,7 @@ public class Enemy3 : EnemyClass
         laser.EnableLaserLine();
         while (curTimer >= 0.0f)
         {
+            //Laser SFX Here
             laser.ShootLaser(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
             if (Physics.Raycast(this.transform.position, Vector3.down, Mathf.Abs(this.transform.position.y - bottomOfLaser), playerMask) && !hasHitPlayer)
             {
@@ -122,7 +123,7 @@ public class Enemy3 : EnemyClass
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
-                // Death explosion goes here
+                // Death SFX Here
                 Destroy(this.gameObject);
             }
         }

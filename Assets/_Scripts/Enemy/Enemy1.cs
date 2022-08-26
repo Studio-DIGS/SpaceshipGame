@@ -52,19 +52,21 @@ public class Enemy1 : EnemyClass
             if (this.healthSystem.GetHealth() <= 0)
             {
                 // Death explosion goes here
+                // Death SFX Here
                 Destroy(this.gameObject);
             }
         }
         if (other.gameObject.tag == "Player")
         {
-            StartCoroutine(DeathAnimation()); //Insert Kamikaze explosion here
+            StartCoroutine(DeathAnimation()); // Insert Kamikaze explosion here
         }
     }
 
     private IEnumerator DeathAnimation()
     {
-        Destroy(GetComponent<SphereCollider>()); //This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
+        Destroy(GetComponent<SphereCollider>()); // This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
         //Insert Kamikaze explosion here
+        //Kamikaze explosion SFX Here
         yield return new WaitForSeconds(1.0f);
         Destroy(this.gameObject);
     }

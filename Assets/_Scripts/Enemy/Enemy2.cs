@@ -62,14 +62,12 @@ public class Enemy2 : EnemyClass
         {
             Bullet curBullet = (Bullet) Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
             projectiles[i] = curBullet;
-            //projectiles[i].tag = "EnemyProjectile";
-            //projectiles[i].gameObject.layer = enemyLayer;
-            //projectiles[i].transform.localScale = new Vector3(1, 1, 1);
-            //projectiles[i].GetComponent<SphereCollider>().isTrigger = true;
         }
         projectiles[0].Setup(projectileSpeed, projectileSpeed);
         projectiles[1].Setup(projectileSpeed, -projectileSpeed);
         projectiles[2].Setup(-projectileSpeed, -projectileSpeed);
         projectiles[3].Setup(-projectileSpeed, projectileSpeed);
+
+        //Bullet SFX Here
     }
 }
