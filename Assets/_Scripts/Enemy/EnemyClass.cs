@@ -18,6 +18,8 @@ public class EnemyClass : ObjectOnPath
 
     private PathCreator pathCreator;
 
+    public ParticleSystem explosion;
+
     protected virtual void Awake()
     {
         onPath = false;
@@ -71,7 +73,10 @@ public class EnemyClass : ObjectOnPath
                 //Death SFX Here
 
                 // Death explosion goes here
-                Destroy(this.gameObject);
+                Debug.Log("im dead 💀");
+                explosion.Play();
+                gameObject.transform.localScale = new Vector3(0, 0, 0);
+                Destroy(this.gameObject, 1);
             }
         }
     }
