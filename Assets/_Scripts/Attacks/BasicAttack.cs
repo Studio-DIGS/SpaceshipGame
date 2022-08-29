@@ -8,7 +8,7 @@ namespace CommandPattern
 {
     private static Object Projectile;
     private static float projectileSpeed = 50.0f;
-    private static float fireRate = 9f;
+    private static float fireRate = 10f;
 
     void OnEnable() 
     {

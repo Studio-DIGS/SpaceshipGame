@@ -356,11 +356,51 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: speed
-      value: 40
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: dashingTime
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: acceleration
-      value: 10
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: dashingPower
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: bulletVelocity
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3018681972834586134, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: m_IsActive
@@ -486,37 +526,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EasyEnemyBucket:
-  - {fileID: 6351499620182799951, guid: a33299de1877bdf499626831092097c7, type: 3}
+  - {fileID: 7568614957549321966, guid: f742a6f40a71079419db4d421b71facd, type: 3}
+  - {fileID: 1058443793300434835, guid: d99bfc332c8337f49a351dbee3191e5c, type: 3}
+  - {fileID: 8244024708890017290, guid: 314ef641c25d22e4cb8891c5cef60f41, type: 3}
+  - {fileID: 5203346526084407025, guid: 715dc007b0ac7a34aa4c4e81ad4af9d8, type: 3}
   mediumEnemyBucket:
-  - {fileID: 6351499620182799951, guid: 14438ff148e36d0458400bde510c3924, type: 3}
+  - {fileID: 7364445822072211770, guid: e58a0fed57a98634bac04c036a77dad7, type: 3}
+  - {fileID: 5095728551079892734, guid: cd817a69b412a824ea1070a1141184ec, type: 3}
+  - {fileID: 2024831245083775766, guid: 23c07cc430ad0f5479fe5983f2481d1e, type: 3}
+  - {fileID: 5968203667374735214, guid: 825ec9088a6e60149a7b6d8efe5a2370, type: 3}
+  - {fileID: 7711785454814517649, guid: 8637d637454815141aed2223b379f3ae, type: 3}
+  - {fileID: 1735932748568788240, guid: 2e1f0fe3bd2d8b24fba390b5e4ff2277, type: 3}
   advancedEnemyBucket:
-  - {fileID: 6351499620182799951, guid: 6f64388a72bf4c647b54cc6504583713, type: 3}
+  - {fileID: 2662773790996143891, guid: 1609d8c0c9048c143b3ca764d1db2378, type: 3}
+  - {fileID: 987458293554886225, guid: 5febeeb424b1ea745ba1dbed49ea6b69, type: 3}
+  - {fileID: 2478176552614005511, guid: dee6b5a3ef30d774eadbe1a1c1cf5a07, type: 3}
+  - {fileID: 7194343177694286842, guid: 7724895b7df761d4c9e0aa752007c873, type: 3}
+  - {fileID: 6033614943833667726, guid: 036f9e49b175b244b8fbd57586cfa75d, type: 3}
   expertEnemyBucket:
   - {fileID: 8913709201232531215, guid: 6b70fce1150b122489d70186aeafb00f, type: 3}
   wavesToMediumBucket: 2
-  wavesToAdvancedBucket: 4
-  wavesToExpertBucket: 3
+  wavesToAdvancedBucket: 3
+  wavesToExpertBucket: 5
   waves:
-  - name: FirstWave
-    count: 5
-    rate: 2
-  - name: SecondWave
+  - name: EasyWave1
+    count: 6
+    rate: 0.5
+  - name: EasyWave2
     count: 10
-    rate: 4
-  - name: ThirdWave
+    rate: 0.6
+  - name: MediumWave1
+    count: 10
+    rate: 0.6
+  - name: MediumWave2
+    count: 8
+    rate: 1.2
+  - name: MediumWave3
+    count: 16
+    rate: 0.6
+  - name: AdvancedWave1
     count: 15
-    rate: 8
-  - name: FourthWave
+    rate: 0.6
+  - name: AdvancedWave2
     count: 20
-    rate: 10
-  - name: FifthWave
-    count: 25
-    rate: 20
+    rate: 0.75
+  - name: AdvancedWave3
+    count: 15
+    rate: 1.5
+  - name: AdvancedWave4
+    count: 20
+    rate: 0.75
+  - name: AdvancedWave5
+    count: 15
+    rate: 0.8
+  - name: ExpertWave1
+    count: 15
+    rate: 0.75
+  - name: ExpertWave2
+    count: 20
+    rate: 0.9
+  - name: ExpertWave3
+    count: 10
+    rate: 2
+  - name: ExpertWave4
+    count: 20
+    rate: 0.85
+  - name: ExpertWave5
+    count: 30
+    rate: 1.25
   minimumHeight: -30
   maximumHeight: 30
   initialWaitTimer: 1
-  baseWaveMultipler: 2
-  timeBetweenWaves: 3
+  baseWaveMultipler: 1.5
+  timeBetweenWaves: 1.5
   maxTimeIdlingWaves: 15
   waveCountdown: 0
 --- !u!4 &894363491

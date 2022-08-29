@@ -123,7 +123,8 @@ public class Enemy3 : EnemyClass
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
-                // Death SFX Here
+                explosion.Play();
+                player.GetComponent<Player>().points.AddPoints(pointsWorth);
                 Destroy(this.gameObject);
             }
         }

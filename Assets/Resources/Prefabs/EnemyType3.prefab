@@ -86,9 +86,10 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
-  maxHealth: 1
+  maxHealth: 2
   speed: 20
   acceleration: 1
+  pointsWorth: 100
   healthBar: {fileID: 0}
   initialDirection: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -5088,9 +5089,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4234490130361645669, guid: 2282525639fa17e49805e94bae75d690, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4282885525179182181, guid: 2282525639fa17e49805e94bae75d690, type: 3}
       propertyPath: m_Name
       value: EnemyLaser
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742107958963440999, guid: 2282525639fa17e49805e94bae75d690, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2282525639fa17e49805e94bae75d690, type: 3}

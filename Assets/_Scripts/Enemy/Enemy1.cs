@@ -51,8 +51,9 @@ public class Enemy1 : EnemyClass
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
-                // Death explosion goes here
+                explosion.Play();
                 // Death SFX Here
+                player.GetComponent<Player>().points.AddPoints(pointsWorth);
                 Destroy(this.gameObject);
             }
         }
@@ -65,9 +66,9 @@ public class Enemy1 : EnemyClass
     private IEnumerator DeathAnimation()
     {
         Destroy(GetComponent<SphereCollider>()); // This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
-        //Insert Kamikaze explosion here
+        explosion.Play();
         //Kamikaze explosion SFX Here
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
     }
 }

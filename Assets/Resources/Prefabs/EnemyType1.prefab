@@ -67,8 +67,9 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
   maxHealth: 1
-  speed: 25
-  acceleration: 1.5
+  speed: 35
+  acceleration: 2
+  pointsWorth: 50
   healthBar: {fileID: 0}
   initialDirection: 0
   spawnPoint: {x: 0, y: 0, z: 0}

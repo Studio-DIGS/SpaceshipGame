@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 
-public class EnemyClass : ObjectOnPath
+public abstract class EnemyClass : ObjectOnPath
 {
     public int maxHealth;
     public float speed;
     public float acceleration;
+    public int pointsWorth;
 
     public HealthSystem healthSystem;
     public HealthBar healthBar;
@@ -19,12 +20,14 @@ public class EnemyClass : ObjectOnPath
     private PathCreator pathCreator;
 
     public ParticleSystem explosion;
+    private Formation parentFormation;
 
     protected virtual void Awake()
     {
         onPath = false;
         player = GameObject.Find("Player");
         pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
+        parentFormation = this.transform.parent.gameObject.GetComponent<Formation>();
     }
 
     protected virtual void Start()
@@ -57,7 +60,15 @@ public class EnemyClass : ObjectOnPath
         if (Vector3.Distance(transform.position, spawnPoint) < 0.01f)
         {
             GetComponent<PathBound>().enabled = true;
-            initialDirection = -1 * player.GetComponent<Player>().getOrientation();
+            if (parentFormation.direction != 1.0f || parentFormation.direction != -1.0f)
+            {
+                initialDirection = parentFormation.direction;
+            }
+            else
+            {
+                initialDirection = -1 * player.GetComponent<Player>().orientation;
+                Debug.LogError("parentFormation.direction not working!");
+            }
             onPath = true;
         }
     }
@@ -71,9 +82,8 @@ public class EnemyClass : ObjectOnPath
             if (this.healthSystem.GetHealth() <= 0)
             {
                 //Death SFX Here
-
+                player.GetComponent<Player>().points.AddPoints(pointsWorth);
                 // Death explosion goes here
-                Debug.Log("im dead 💀");
                 explosion.Play();
                 gameObject.transform.localScale = new Vector3(0, 0, 0);
                 Destroy(this.gameObject, 1);

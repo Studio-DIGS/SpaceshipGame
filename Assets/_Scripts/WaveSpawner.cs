@@ -84,7 +84,7 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
 
     void WaveCompleted()
     {
-        //Debug.Log("Wave Completed!");
+        Debug.Log("Wave Completed!");
 
         timeIdlingWaves = maxTimeIdlingWaves;
 
@@ -122,8 +122,8 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
 
         if (nextWave + 1 > waves.Length - 1)
         {
-            nextWave = 0;
-            //Debug.Log("All waves complete! Looping.");
+            //nextWave = 0;
+            Debug.Log("RepeatingFinalWave");
             return;
         }
 
@@ -147,7 +147,7 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
 
     IEnumerator SpawnWave(Wave _wave)
     {
-        //Debug.Log("Spawning Wave: " + _wave.name);
+        Debug.Log("Spawning Wave: " + _wave.name);
         state = SpawnState.SPAWNING;
 
         for (int i = 0; i < _wave.count; i++)

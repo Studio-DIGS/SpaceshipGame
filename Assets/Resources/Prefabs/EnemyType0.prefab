@@ -69,6 +69,7 @@ MonoBehaviour:
   maxHealth: 1
   speed: 25
   acceleration: 1.5
+  pointsWorth: 25
   healthBar: {fileID: 0}
   initialDirection: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -86,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectOnPath: {fileID: -1519358537869253379}
-  collisionSphereRadius: 4
+  collisionSphereRadius: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 448
