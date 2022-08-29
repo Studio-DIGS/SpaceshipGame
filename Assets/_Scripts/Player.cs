@@ -6,7 +6,7 @@ using PathCreation;
 
 public class Player : ObjectOnPath
 {
-    [SerializeField] PlayerMesh playerMesh;
+    [SerializeField] PlayerMesh playerMesh; //Grabs from PlayerMesh script
     private PlayerStats playerStats;
     private Points points;
     public Camera playerCamera;
@@ -31,8 +31,18 @@ public class Player : ObjectOnPath
 
     public float distanceAlongPath;
 
+    public AudioSource[] allPlayerSounds; //Creating Array for all player sound effects
+    AudioSource bulletSound; //Establishes variable bulletSound
+
 
     // Start is called before the first frame update
+    void Awake() //Ant awake function
+    {
+        allPlayerSounds = GetComponents<AudioSource>();
+        bulletSound = allPlayerSounds[0];
+        // playerDamaged = allPlayerSounds[1];
+        // playerDeath = allPlayerSounds[2];
+    }
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
@@ -42,6 +52,7 @@ public class Player : ObjectOnPath
         points = GetComponent<Points>();
         mainAttack = (BasicAttack) ScriptableObject.CreateInstance("BasicAttack");
         layerMask = LayerMask.NameToLayer("Barrier");
+        
     }
 
     public float getOrientation()
@@ -76,10 +87,11 @@ public class Player : ObjectOnPath
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
         _checkCollision();
 
-        // Shooting script for player
+        
         if (Input.GetButton("Fire1"))
         {
             mainAttack.Fire(this.GetComponent<Player>());
+            bulletSound.Play(); // Ant bullet --------------------------------------
             return;
         }
 
@@ -136,6 +148,7 @@ public class Player : ObjectOnPath
     public void TakeDamage()
     {
         playerMesh.TakeDamage();
+        //playerDamaged.Play(); //Ant player Damage ---------------------------------------------------
     }
 
     public float GetPreviousFire()

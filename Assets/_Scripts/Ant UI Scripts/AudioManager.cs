@@ -6,17 +6,17 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
 
-    // public static AudioManager instance; //Making sure there is only 1 instance
+    public static AudioManager instance; //Making sure there is only 1 instance
 
     void Awake ()
     {
-        // if (instance == null)
-        //     instance = this;
-        // else
-        //     {
-        //         Destroy(gameObject);
-        //         return;
-        //     }
+        if (instance == null)
+            instance = this;
+        else
+            {
+                Destroy(gameObject);
+                return;
+            }
         DontDestroyOnLoad(gameObject);
 
         foreach (Sound s in sounds)

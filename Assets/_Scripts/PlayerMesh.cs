@@ -17,10 +17,16 @@ public class PlayerMesh : MonoBehaviour
 
     public CameraShake cameraShake;
 
+    AudioSource[] allPlayerMeshSounds; //Ant creates container
+    AudioSource playerDamaged;
+    AudioSource playerDeath;
 
     void Awake()
     {
         shipMaterialRef = GetComponent<Renderer>().material;
+        allPlayerMeshSounds = player.allPlayerSounds; //Ant pulls from Player script
+        playerDamaged = allPlayerMeshSounds[1];
+        playerDeath = allPlayerMeshSounds[2];
     }
 
     void Update()
@@ -39,6 +45,7 @@ public class PlayerMesh : MonoBehaviour
         if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && invincible == false)
         {
             TakeDamage();
+            playerDamaged.Play();
         }
     }
 
@@ -61,10 +68,11 @@ public class PlayerMesh : MonoBehaviour
         StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
         Debug.Log("FUCK 2");
         player.healthSystem.Damage(1);
+        playerDamaged.Play();
         if (player.healthSystem.GetHealth() <= 0)
         {
-            // Death explosion goes here
-            SceneManager.LoadScene("GameOver");
+            playerDeath.Play();
+            //SceneManager.LoadScene("GameOver");
             //Destroy(player.gameObject);
         }
 
