@@ -57,9 +57,7 @@ public class PlayerMesh : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("FUCK");
         StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
-        Debug.Log("FUCK 2");
         player.healthSystem.Damage(1);
         if (player.healthSystem.GetHealth() <= 0)
         {

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+#region Variables
 
 public enum SpawnState { SPAWNING, WAITING, COUNTING };
+private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
 
     [System.Serializable]
     public class Wave
@@ -15,12 +17,21 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         public float rate;
     }
 
-    public Transform[] enemyList;
+    public Transform[] EasyEnemyBucket;
+    public Transform[] mediumEnemyBucket;
+    public Transform[] advancedEnemyBucket;
+    public Transform[] expertEnemyBucket;
+    private List<Transform> fullEnemyBucket = new List<Transform>();
     private int enemyIndex;
+
+    [SerializeField] int wavesToMediumBucket;
+    [SerializeField] int wavesToAdvancedBucket;
+    [SerializeField] int wavesToExpertBucket;
+    private int wavesLeft;
+    private WaveBucket bucketToAdd = WaveBucket.MEDIUM;
 
     public Wave[] waves;
     private int nextWave = 0;
-
     public float minimumHeight = -30f;
     public float maximumHeight = 30f;
 
@@ -34,11 +45,13 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
     private float searchCountdown = 1f;
 
     private SpawnState state = SpawnState.COUNTING;
-
+#endregion
     private void Start() 
     {
         timeIdlingWaves = maxTimeIdlingWaves;
         waveCountdown = initialWaitTimer;
+        wavesLeft = wavesToMediumBucket;
+        AddBucket(EasyEnemyBucket);
     }
 
     private void Update() 
@@ -59,7 +72,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         {
             if (state != SpawnState.SPAWNING)
             {
-                enemyIndex = Random.Range(0, enemyList.Length);
+                enemyIndex = Random.Range(0, fullEnemyBucket.Count);
                 StartCoroutine( SpawnWave( waves[nextWave] ) );
             }
         }
@@ -77,6 +90,35 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
+
+        wavesLeft--;
+
+        if (wavesLeft <= 0)
+        {
+            switch(bucketToAdd)
+            {
+                case WaveBucket.MEDIUM:
+                    AddBucket(mediumEnemyBucket);
+
+                    wavesLeft = wavesToAdvancedBucket;
+                    bucketToAdd = WaveBucket.ADVANCED;
+                    break;
+                case WaveBucket.ADVANCED:
+                    AddBucket(advancedEnemyBucket);
+
+                    wavesLeft = wavesToExpertBucket;
+                    bucketToAdd = WaveBucket.EXPERT;
+                    break;
+                case WaveBucket.EXPERT:
+                    AddBucket(expertEnemyBucket);
+
+                    bucketToAdd = WaveBucket.COMPLETE;
+                    break;
+                case WaveBucket.COMPLETE:
+                    Debug.Log("All buckets have been added.");
+                    break;
+            }
+        }
 
         if (nextWave + 1 > waves.Length - 1)
         {
@@ -110,8 +152,8 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
         for (int i = 0; i < _wave.count; i++)
         {
-            SpawnEnemy(enemyList[enemyIndex]);
-            enemyIndex = Random.Range(0, enemyList.Length);
+            SpawnEnemy(fullEnemyBucket[enemyIndex]);
+            enemyIndex = Random.Range(0, fullEnemyBucket.Count);
             yield return new WaitForSeconds( 1f / (_wave.rate * baseWaveMultipler) );
         }
 
@@ -127,7 +169,7 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         Instantiate(_enemy, spawnLocation, transform.rotation);
     }
 
-    bool TimeRunsOut()
+    private bool TimeRunsOut()
     {
         timeIdlingWaves -= Time.deltaTime;
         if (timeIdlingWaves <= 0f)
@@ -137,6 +179,14 @@ public enum SpawnState { SPAWNING, WAITING, COUNTING };
         else
         {
             return false;
+        }
+    }
+
+    private void AddBucket(Transform[] _bucketToAdd)
+    {
+        for (int i = 0; i < _bucketToAdd.Length; i++)
+        {
+            fullEnemyBucket.Add(_bucketToAdd[i]);
         }
     }
 }
