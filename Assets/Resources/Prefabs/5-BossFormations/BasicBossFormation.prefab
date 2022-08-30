@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2940242953088980540}
   - component: {fileID: 3955397168921193146}
   m_Layer: 0
-  m_Name: BossFormation
+  m_Name: BasicBossFormation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

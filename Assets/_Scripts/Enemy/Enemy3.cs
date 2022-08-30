@@ -123,9 +123,13 @@ public class Enemy3 : EnemyClass
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
-                explosion.Play();
                 player.GetComponent<Player>().points.AddPoints(pointsWorth);
-                Destroy(this.gameObject);
+
+                explosion.Play();
+                gameObject.transform.localScale = new Vector3(0, 0, 0);
+                this.gameObject.GetComponent<SphereCollider>().enabled = false;
+
+                Destroy(this.gameObject, 1);
             }
         }
     }

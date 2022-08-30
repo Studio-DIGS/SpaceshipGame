@@ -13,11 +13,11 @@ public abstract class EnemyClass : ObjectOnPath
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 
-    protected GameObject player;
+    protected static GameObject player;
     [HideInInspector] public float initialDirection;
     [HideInInspector] public Vector3 spawnPoint;
 
-    private PathCreator pathCreator;
+    private static PathCreator pathCreator;
 
     private static Object damageParticlePrefab;
     public ParticleSystem explosion;
@@ -26,8 +26,14 @@ public abstract class EnemyClass : ObjectOnPath
     protected virtual void Awake()
     {
         onPath = false;
-        player = GameObject.Find("Player");
-        pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
+        if (player == null)
+        {
+            player = GameObject.Find("Player");
+        }
+        if (pathCreator == null)
+        {
+            pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
+        }
         parentFormation = this.transform.parent.gameObject.GetComponent<Formation>();
     }
 
@@ -49,11 +55,10 @@ public abstract class EnemyClass : ObjectOnPath
 
     private void FindPointOnPath()
     {
-        float playerDistance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
-        float enemySpawnDistance = playerDistance - 180f;
+        float enemySpawnDistance = parentFormation.playerDistance - 180f;
         if (enemySpawnDistance <= 0f)
         {
-            enemySpawnDistance = playerDistance + 180f;
+            enemySpawnDistance = parentFormation.playerDistance + 180f;
         }
         spawnPoint = pathCreator.path.GetPointAtDistance(enemySpawnDistance);
         spawnPoint.y = transform.position.y;
@@ -94,6 +99,8 @@ public abstract class EnemyClass : ObjectOnPath
                 // Death explosion goes here
                 explosion.Play();
                 gameObject.transform.localScale = new Vector3(0, 0, 0);
+                this.gameObject.GetComponent<SphereCollider>().enabled = false;
+
                 Destroy(this.gameObject, 1);
             }
         }

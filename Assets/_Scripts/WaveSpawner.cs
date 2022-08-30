@@ -6,8 +6,8 @@ public class WaveSpawner : MonoBehaviour
 {
 #region Variables
 
-public enum SpawnState { SPAWNING, WAITING, COUNTING };
-private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
+    public enum SpawnState { SPAWNING, WAITING, COUNTING };
+    private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
 
     [System.Serializable]
     public class Wave
@@ -15,18 +15,17 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
         public string name;
         public int count;
         public float rate;
+        public bool willSpawnBoss;
     }
 
-    public Transform[] EasyEnemyBucket;
-    public Transform[] mediumEnemyBucket;
-    public Transform[] advancedEnemyBucket;
-    public Transform[] expertEnemyBucket;
+    [SerializeField]
+    private Transform[] easyEnemyBucket, mediumEnemyBucket, advancedEnemyBucket, expertEnemyBucket, bossBucket;
+
     private List<Transform> fullEnemyBucket = new List<Transform>();
     private int enemyIndex;
 
-    [SerializeField] int wavesToMediumBucket;
-    [SerializeField] int wavesToAdvancedBucket;
-    [SerializeField] int wavesToExpertBucket;
+    [SerializeField] 
+    private int wavesToMediumBucket, wavesToAdvancedBucket, wavesToExpertBucket;
     private int wavesLeft;
     private WaveBucket bucketToAdd = WaveBucket.MEDIUM;
 
@@ -46,12 +45,13 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
 
     private SpawnState state = SpawnState.COUNTING;
 #endregion
+
     private void Start() 
     {
         timeIdlingWaves = maxTimeIdlingWaves;
         waveCountdown = initialWaitTimer;
         wavesLeft = wavesToMediumBucket;
-        AddBucket(EasyEnemyBucket);
+        AddBucket(easyEnemyBucket);
     }
 
     private void Update() 
@@ -156,6 +156,10 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
             enemyIndex = Random.Range(0, fullEnemyBucket.Count);
             yield return new WaitForSeconds( 1f / (_wave.rate * baseWaveMultipler) );
         }
+        if (_wave.willSpawnBoss)
+        {
+            SpawnBoss();
+        }
 
         state = SpawnState.WAITING;
 
@@ -188,5 +192,11 @@ private enum WaveBucket { MEDIUM, ADVANCED, EXPERT, COMPLETE } ;
         {
             fullEnemyBucket.Add(_bucketToAdd[i]);
         }
+    }
+
+    void SpawnBoss()
+    {
+        enemyIndex = Random.Range(0, bossBucket.Length);
+        SpawnEnemy(bossBucket[enemyIndex]);
     }
 }

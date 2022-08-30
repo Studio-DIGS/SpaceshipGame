@@ -9,6 +9,16 @@ public class Enemy1 : EnemyClass
     public float detectionRadius;
     public LayerMask targetMask;
     private Transform targetTransform;
+    private static Player playerComponent;
+
+    private new void Awake() 
+    {
+        base.Awake();
+        if (playerComponent == null)
+        {
+            playerComponent = player.GetComponent<Player>();
+        }
+    }
 
     void Update()
     {
@@ -51,13 +61,16 @@ public class Enemy1 : EnemyClass
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
-                explosion.Play();
-                // Death SFX Here
                 player.GetComponent<Player>().points.AddPoints(pointsWorth);
-                Destroy(this.gameObject);
+
+                explosion.Play();
+                gameObject.transform.localScale = new Vector3(0, 0, 0);
+                this.gameObject.GetComponent<SphereCollider>().enabled = false;
+
+                Destroy(this.gameObject, 1);
             }
         }
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && playerComponent.invincible)
         {
             StartCoroutine(DeathAnimation()); // Insert Kamikaze explosion here
         }
@@ -65,7 +78,7 @@ public class Enemy1 : EnemyClass
 
     private IEnumerator DeathAnimation()
     {
-        Destroy(GetComponent<SphereCollider>()); // This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
+        this.gameObject.GetComponent<SphereCollider>().enabled = false; // This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
         explosion.Play();
         //Kamikaze explosion SFX Here
         yield return new WaitForSeconds(0.5f);

@@ -18,6 +18,7 @@ public class Boss : EnemyClass
         else
         {
             FollowPlayer();
+            
             move = Vector2.Lerp(move, moveDirection * speed, acceleration * Time.deltaTime); // applies movement
         }
     }

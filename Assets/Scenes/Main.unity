@@ -506,7 +506,6 @@ GameObject:
   m_Component:
   - component: {fileID: 894363491}
   - component: {fileID: 894363490}
-  - component: {fileID: 894363492}
   m_Layer: 0
   m_Name: Spawning
   m_TagString: Untagged
@@ -526,11 +525,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f8c113d83fdcd44830c5bc902d559e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EasyEnemyBucket:
-  - {fileID: 7568614957549321966, guid: f742a6f40a71079419db4d421b71facd, type: 3}
-  - {fileID: 1058443793300434835, guid: d99bfc332c8337f49a351dbee3191e5c, type: 3}
+  easyEnemyBucket:
   - {fileID: 8244024708890017290, guid: 314ef641c25d22e4cb8891c5cef60f41, type: 3}
   - {fileID: 5203346526084407025, guid: 715dc007b0ac7a34aa4c4e81ad4af9d8, type: 3}
+  - {fileID: 7568614957549321966, guid: f742a6f40a71079419db4d421b71facd, type: 3}
+  - {fileID: 1058443793300434835, guid: d99bfc332c8337f49a351dbee3191e5c, type: 3}
   mediumEnemyBucket:
   - {fileID: 7364445822072211770, guid: e58a0fed57a98634bac04c036a77dad7, type: 3}
   - {fileID: 5095728551079892734, guid: cd817a69b412a824ea1070a1141184ec, type: 3}
@@ -546,6 +545,8 @@ MonoBehaviour:
   - {fileID: 6033614943833667726, guid: 036f9e49b175b244b8fbd57586cfa75d, type: 3}
   expertEnemyBucket:
   - {fileID: 8913709201232531215, guid: 6b70fce1150b122489d70186aeafb00f, type: 3}
+  bossBucket:
+  - {fileID: 2940242953088980540, guid: beb1b1a48ce9440ff8b7e82f02f348c6, type: 3}
   wavesToMediumBucket: 2
   wavesToAdvancedBucket: 3
   wavesToExpertBucket: 5
@@ -553,54 +554,89 @@ MonoBehaviour:
   - name: EasyWave1
     count: 6
     rate: 0.5
+    willSpawnBoss: 0
   - name: EasyWave2
     count: 10
     rate: 0.6
+    willSpawnBoss: 0
   - name: MediumWave1
     count: 10
     rate: 0.6
+    willSpawnBoss: 0
   - name: MediumWave2
     count: 8
     rate: 1.2
+    willSpawnBoss: 0
   - name: MediumWave3
     count: 16
     rate: 0.6
+    willSpawnBoss: 0
   - name: AdvancedWave1
     count: 15
     rate: 0.6
+    willSpawnBoss: 0
   - name: AdvancedWave2
     count: 20
     rate: 0.75
+    willSpawnBoss: 0
   - name: AdvancedWave3
     count: 15
     rate: 1.5
+    willSpawnBoss: 0
   - name: AdvancedWave4
     count: 20
     rate: 0.75
+    willSpawnBoss: 0
   - name: AdvancedWave5
     count: 15
     rate: 0.8
+    willSpawnBoss: 0
   - name: ExpertWave1
     count: 15
     rate: 0.75
+    willSpawnBoss: 0
   - name: ExpertWave2
     count: 20
     rate: 0.9
+    willSpawnBoss: 0
   - name: ExpertWave3
     count: 10
     rate: 2
+    willSpawnBoss: 1
   - name: ExpertWave4
     count: 20
     rate: 0.85
+    willSpawnBoss: 0
   - name: ExpertWave5
     count: 30
+    rate: 1
+    willSpawnBoss: 0
+  - name: ExpertWave6
+    count: 25
     rate: 1.25
+    willSpawnBoss: 0
+  - name: ExpertWave7
+    count: 15
+    rate: 2.25
+    willSpawnBoss: 1
+  - name: ExpertWave8
+    count: 30
+    rate: 1.25
+    willSpawnBoss: 0
+  - name: ExpertWave9
+    count: 30
+    rate: 1.25
+    willSpawnBoss: 0
+  - name: ExpertWave10
+    count: 30
+    rate: 1.25
+    willSpawnBoss: 1
   minimumHeight: -30
   maximumHeight: 30
   initialWaitTimer: 1
   baseWaveMultipler: 1.5
   timeBetweenWaves: 1.5
-  maxTimeIdlingWaves: 15
+  maxTimeIdlingWaves: 30
   waveCountdown: 0
 --- !u!4 &894363491
 Transform:
@@ -617,37 +653,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &894363492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894363489}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45f8c113d83fdcd44830c5bc902d559e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EasyEnemyBucket:
-  - {fileID: 2940242953088980540, guid: beb1b1a48ce9440ff8b7e82f02f348c6, type: 3}
-  mediumEnemyBucket: []
-  advancedEnemyBucket: []
-  expertEnemyBucket: []
-  wavesToMediumBucket: 0
-  wavesToAdvancedBucket: 0
-  wavesToExpertBucket: 0
-  waves:
-  - name: EasyWave1
-    count: 6
-    rate: 0.5
-  minimumHeight: -30
-  maximumHeight: 30
-  initialWaitTimer: 0
-  baseWaveMultipler: 0
-  timeBetweenWaves: 0
-  maxTimeIdlingWaves: 0
-  waveCountdown: 0
 --- !u!114 &1063679593 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3909972480923119631, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
@@ -961,7 +966,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -989,12 +994,12 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 448
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1012,14 +1017,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500665650}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 713714191}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &1545888208
 PrefabInstance:
   m_ObjectHideFlags: 0
