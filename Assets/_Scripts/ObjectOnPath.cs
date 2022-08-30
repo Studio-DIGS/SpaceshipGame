@@ -7,4 +7,5 @@ public class ObjectOnPath : MonoBehaviour
     public bool onPath;
     [HideInInspector] public Vector3 target;
     [HideInInspector] public Vector2 move, targetDir;
+    [HideInInspector] public float offset;
 }

@@ -19,6 +19,7 @@ public abstract class EnemyClass : ObjectOnPath
 
     private PathCreator pathCreator;
 
+    private static Object damageParticlePrefab;
     public ParticleSystem explosion;
     private Formation parentFormation;
 
@@ -30,12 +31,17 @@ public abstract class EnemyClass : ObjectOnPath
         parentFormation = this.transform.parent.gameObject.GetComponent<Formation>();
     }
 
-    protected virtual void Start()
+    public virtual void Start()
     {
         healthSystem = new HealthSystem(maxHealth);
         if (healthBar != null)
         {
             healthBar.Setup(healthSystem);
+        }
+        
+        if (damageParticlePrefab == null)
+        {
+            damageParticlePrefab = Resources.Load<ParticleSystem>("Prefabs/DamageParticles");
         }
 
         FindPointOnPath();
@@ -77,6 +83,8 @@ public abstract class EnemyClass : ObjectOnPath
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            ParticleSystem sparks = (ParticleSystem) Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
+            sparks.Play();
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)

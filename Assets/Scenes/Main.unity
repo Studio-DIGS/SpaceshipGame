@@ -506,6 +506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 894363491}
   - component: {fileID: 894363490}
+  - component: {fileID: 894363492}
   m_Layer: 0
   m_Name: Spawning
   m_TagString: Untagged
@@ -616,6 +617,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &894363492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894363489}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f8c113d83fdcd44830c5bc902d559e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EasyEnemyBucket:
+  - {fileID: 2940242953088980540, guid: beb1b1a48ce9440ff8b7e82f02f348c6, type: 3}
+  mediumEnemyBucket: []
+  advancedEnemyBucket: []
+  expertEnemyBucket: []
+  wavesToMediumBucket: 0
+  wavesToAdvancedBucket: 0
+  wavesToExpertBucket: 0
+  waves:
+  - name: EasyWave1
+    count: 6
+    rate: 0.5
+  minimumHeight: -30
+  maximumHeight: 30
+  initialWaitTimer: 0
+  baseWaveMultipler: 0
+  timeBetweenWaves: 0
+  maxTimeIdlingWaves: 0
+  waveCountdown: 0
 --- !u!114 &1063679593 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3909972480923119631, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}

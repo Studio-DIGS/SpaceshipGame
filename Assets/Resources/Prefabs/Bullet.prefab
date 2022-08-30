@@ -207,6 +207,7 @@ MonoBehaviour:
   onPath: 1
   target: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
+  targetOffset: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
 --- !u!114 &-6367094155261770582
 MonoBehaviour:
@@ -221,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectOnPath: {fileID: 3509433501710236067}
-  collisionSphereRadius: 2
+  collisionSphereRadius: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 0

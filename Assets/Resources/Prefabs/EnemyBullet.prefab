@@ -4908,7 +4908,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.35686275, b: 0.15686275, a: 1}
+      key0: {r: 1, g: 0.28773582, b: 0.5243908, a: 1}
       key1: {r: 1, g: 0.35686275, b: 0.15686275, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -5014,6 +5014,7 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
+  offset: 0
 --- !u!114 &-513171763502899623
 MonoBehaviour:
   m_ObjectHideFlags: 0
