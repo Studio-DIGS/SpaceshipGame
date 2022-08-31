@@ -30,10 +30,11 @@ public class Enemy2 : EnemyClass
         else
         {
             Wander();
-            if(canShoot)
+            if(canShoot && isAlive)
             {
                 StartCoroutine(Shoot());
             }
+
             move = Vector2.Lerp(move, moveDirection * speed, acceleration * Time.deltaTime); // applies movement
             
         }

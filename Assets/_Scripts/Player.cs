@@ -12,6 +12,7 @@ public class Player : ObjectOnPath
     public Camera playerCamera;
     public HealthSystem healthSystem;
     public HealthBar healthBar;
+    public float timeToRegen = 20.0f;
 
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
@@ -49,11 +50,9 @@ public class Player : ObjectOnPath
         return orientation;
     }
 
-    // Update is called once per frame
     void Update()
     {
         _updatePlayer();
-        _updateParticles();
     }
 
     void _updatePlayer()
@@ -63,7 +62,7 @@ public class Player : ObjectOnPath
         
         if (isDashing)
         {
-            _checkCollision();
+            CheckCollision();
             return;
         }
 
@@ -74,7 +73,7 @@ public class Player : ObjectOnPath
             orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
         }
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
-        _checkCollision();
+        CheckCollision();
 
         // Shooting script for player
         if (Input.GetButton("Fire1"))
@@ -90,17 +89,12 @@ public class Player : ObjectOnPath
         }
     }
 
-    void _updateParticles()
-    {
-        return;
-    }
-
     // void FixedUpdate()
     // {
     //     _checkCollision();
     // }
 
-    void _checkCollision()
+    void CheckCollision()
     {
         
         Debug.DrawRay(transform.position, Vector3.up * rayDistance, Color.yellow);

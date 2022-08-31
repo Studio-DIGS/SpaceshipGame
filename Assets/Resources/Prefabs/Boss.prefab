@@ -57,7 +57,7 @@ MonoBehaviour:
   maxHealth: 100
   speed: 15
   acceleration: 2
-  pointsWorth: 50
+  pointsWorth: 1000
   healthBar: {fileID: 0}
   initialDirection: 0
   spawnPoint: {x: 0, y: 0, z: 0}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 872761780301749304}
   - component: {fileID: 5736879610016073711}
   - component: {fileID: 9210147537583813403}
+  - component: {fileID: 1505521712390641689}
   m_Layer: 0
   m_Name: DamageParticles
   m_TagString: Untagged
@@ -4813,3 +4814,17 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1505521712390641689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660215876246882488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd3f87d4f7ab37408177900c3a0d666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 1
+  despawnParticles: {fileID: 0}

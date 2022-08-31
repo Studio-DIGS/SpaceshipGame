@@ -17,6 +17,8 @@ public class PlayerMesh : MonoBehaviour
 
     public CameraShake cameraShake;
 
+    private float previousTimeHit = 0.0f;
+
 
     void Awake()
     {
@@ -29,6 +31,13 @@ public class PlayerMesh : MonoBehaviour
         float orientation = -1 * player.orientation;
         float angle = Mathf.Clamp(orientation * 179, -179, 0);
         Quaternion targetRot = Quaternion.Euler(0,angle,0);
+
+        previousTimeHit += Time.deltaTime;
+        if (previousTimeHit >= player.timeToRegen)
+        {
+            player.healthSystem.Heal(1);
+            previousTimeHit = 0.0f;
+        }
         
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, Time.deltaTime * smooth);
     }
@@ -56,6 +65,7 @@ public class PlayerMesh : MonoBehaviour
 
     public void TakeDamage()
     {
+        previousTimeHit = 0.0f;
         StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
         player.healthSystem.Damage(1);
         if (player.healthSystem.GetHealth() <= 0)

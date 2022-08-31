@@ -87,7 +87,7 @@ public class Enemy3 : EnemyClass
         laser.EnableWarningLine();
         while (curTimer >= 0.0f)
         {
-        laser.DisplayWarningLine(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
+            laser.DisplayWarningLine(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
             curTimer -= Time.deltaTime;
             yield return null;
         }
@@ -126,6 +126,8 @@ public class Enemy3 : EnemyClass
                 player.GetComponent<Player>().points.AddPoints(pointsWorth);
 
                 explosion.Play();
+                isAlive = false;
+                laser.RemoveLasers();
                 gameObject.transform.localScale = new Vector3(0, 0, 0);
                 this.gameObject.GetComponent<SphereCollider>().enabled = false;
 

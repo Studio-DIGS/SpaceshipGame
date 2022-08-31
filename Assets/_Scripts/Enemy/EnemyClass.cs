@@ -22,6 +22,7 @@ public abstract class EnemyClass : ObjectOnPath
     private static Object damageParticlePrefab;
     public ParticleSystem explosion;
     private Formation parentFormation;
+    protected bool isAlive = true;
 
     protected virtual void Awake()
     {
@@ -98,6 +99,7 @@ public abstract class EnemyClass : ObjectOnPath
                 player.GetComponent<Player>().points.AddPoints(pointsWorth);
                 // Death explosion goes here
                 explosion.Play();
+                isAlive = false;
                 gameObject.transform.localScale = new Vector3(0, 0, 0);
                 this.gameObject.GetComponent<SphereCollider>().enabled = false;
 

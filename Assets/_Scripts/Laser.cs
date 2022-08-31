@@ -17,7 +17,6 @@ public class Laser : MonoBehaviour
         laserLine.enabled = false;
     }
 
-    //TODO: Use Raycast & Line Renderer To Create Laser
     public void DisplayWarningLine(Vector3 _startingPosition, Vector3 _finalPosition)
     {
         warningLine.SetPosition(startingIndex, _startingPosition);

@@ -553,7 +553,7 @@ MonoBehaviour:
   bossBucket:
   - {fileID: 2940242953088980540, guid: beb1b1a48ce9440ff8b7e82f02f348c6, type: 3}
   wavesToMediumBucket: 2
-  wavesToAdvancedBucket: 3
+  wavesToAdvancedBucket: 2
   wavesToExpertBucket: 5
   waves:
   - name: EasyWave1
@@ -565,36 +565,36 @@ MonoBehaviour:
     rate: 0.6
     willSpawnBoss: 0
   - name: MediumWave1
-    count: 10
-    rate: 0.6
+    count: 8
+    rate: 0.625
     willSpawnBoss: 0
   - name: MediumWave2
-    count: 8
-    rate: 1.2
+    count: 9
+    rate: 0.65
     willSpawnBoss: 0
-  - name: MediumWave3
-    count: 16
-    rate: 0.6
+  - name: IntermissionWave
+    count: 5
+    rate: 0.7
     willSpawnBoss: 0
   - name: AdvancedWave1
-    count: 15
-    rate: 0.6
+    count: 10
+    rate: 0.625
     willSpawnBoss: 0
   - name: AdvancedWave2
-    count: 20
-    rate: 0.75
-    willSpawnBoss: 0
+    count: 5
+    rate: 0.65
+    willSpawnBoss: 1
   - name: AdvancedWave3
-    count: 15
-    rate: 1.5
+    count: 7
+    rate: 0.8
     willSpawnBoss: 0
   - name: AdvancedWave4
-    count: 20
-    rate: 0.75
+    count: 7
+    rate: 0.65
     willSpawnBoss: 0
   - name: AdvancedWave5
-    count: 15
-    rate: 0.8
+    count: 7
+    rate: 0.675
     willSpawnBoss: 0
   - name: ExpertWave1
     count: 15
@@ -641,7 +641,7 @@ MonoBehaviour:
   initialWaitTimer: 1
   baseWaveMultipler: 1.5
   timeBetweenWaves: 1.5
-  maxTimeIdlingWaves: 20
+  maxTimeIdlingWaves: 17.5
   waveCountdown: 0
 --- !u!4 &894363491
 Transform:
