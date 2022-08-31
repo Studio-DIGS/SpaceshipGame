@@ -70,7 +70,7 @@ public class Enemy1 : EnemyClass
                 Destroy(this.gameObject, 1);
             }
         }
-        if (other.gameObject.tag == "Player" && playerComponent.invincible)
+        if (other.gameObject.tag == "Player" && !playerComponent.invincible)
         {
             StartCoroutine(DeathAnimation()); // Insert Kamikaze explosion here
         }

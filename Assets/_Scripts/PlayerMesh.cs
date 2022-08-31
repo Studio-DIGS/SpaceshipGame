@@ -8,7 +8,6 @@ public class PlayerMesh : MonoBehaviour
     public Player player;
     public float smooth;
     
-    private bool invincible;
     public int numberOfFlashes;
     public float iFrameTime;
 
@@ -44,7 +43,7 @@ public class PlayerMesh : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && invincible == false)
+        if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && player.invincible == false)
         {
             TakeDamage();
         }
@@ -52,7 +51,7 @@ public class PlayerMesh : MonoBehaviour
 
     private IEnumerator iFrames()
     {
-        invincible = true;
+        player.invincible = true;
         for (int i = 0; i < numberOfFlashes; i++)
         {
             GetComponent<Renderer>().material = iFrameMaterialRef;
@@ -60,7 +59,7 @@ public class PlayerMesh : MonoBehaviour
             GetComponent<Renderer>().material = shipMaterialRef;
             yield return new WaitForSeconds(iFrameTime / (numberOfFlashes * 2));
         }
-        invincible = false;
+        player.invincible = false;
     }
 
     public void TakeDamage()
