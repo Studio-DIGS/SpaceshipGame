@@ -87,9 +87,16 @@ public class Enemy3 : EnemyClass
         laser.EnableWarningLine();
         while (curTimer >= 0.0f)
         {
-            laser.DisplayWarningLine(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
-            curTimer -= Time.deltaTime;
-            yield return null;
+            if (isAlive)
+            {
+                laser.DisplayWarningLine(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
+                curTimer -= Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+                yield break;
+            }
         }
 
         curTimer = fireDuration;
@@ -97,15 +104,22 @@ public class Enemy3 : EnemyClass
         while (curTimer >= 0.0f)
         {
             //Laser SFX Here
-            laser.ShootLaser(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
-            if (Physics.Raycast(this.transform.position, Vector3.down, Mathf.Abs(this.transform.position.y - bottomOfLaser), playerMask) && !hasHitPlayer)
+            if (isAlive)
             {
-                player.GetComponent<Player>().TakeDamage();
-                hasHitPlayer = true;
+                laser.ShootLaser(this.transform.position, new Vector3(this.transform.position.x, bottomOfLaser, this.transform.position.z));
+                if (Physics.Raycast(this.transform.position, Vector3.down, Mathf.Abs(this.transform.position.y - bottomOfLaser), playerMask) && !hasHitPlayer)
+                {
+                    player.GetComponent<Player>().TakeDamage();
+                    hasHitPlayer = true;
+                }
+    
+                curTimer -= Time.deltaTime;
+                yield return null;
             }
-
-            curTimer -= Time.deltaTime;
-            yield return null;
+            else
+            {
+                yield break;
+            }
         }
 
         laser.RemoveLasers();
