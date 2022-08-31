@@ -532,17 +532,22 @@ MonoBehaviour:
   - {fileID: 1058443793300434835, guid: d99bfc332c8337f49a351dbee3191e5c, type: 3}
   mediumEnemyBucket:
   - {fileID: 7364445822072211770, guid: e58a0fed57a98634bac04c036a77dad7, type: 3}
-  - {fileID: 5095728551079892734, guid: cd817a69b412a824ea1070a1141184ec, type: 3}
   - {fileID: 2024831245083775766, guid: 23c07cc430ad0f5479fe5983f2481d1e, type: 3}
   - {fileID: 5968203667374735214, guid: 825ec9088a6e60149a7b6d8efe5a2370, type: 3}
   - {fileID: 7711785454814517649, guid: 8637d637454815141aed2223b379f3ae, type: 3}
-  - {fileID: 1735932748568788240, guid: 2e1f0fe3bd2d8b24fba390b5e4ff2277, type: 3}
+  - {fileID: 3886154210407444855, guid: 87357674e9f81f542b96a23138eaf58a, type: 3}
+  - {fileID: 1060822016239856214, guid: 496e142bb559cf6419274698ab0a0a76, type: 3}
   advancedEnemyBucket:
-  - {fileID: 2662773790996143891, guid: 1609d8c0c9048c143b3ca764d1db2378, type: 3}
   - {fileID: 987458293554886225, guid: 5febeeb424b1ea745ba1dbed49ea6b69, type: 3}
   - {fileID: 2478176552614005511, guid: dee6b5a3ef30d774eadbe1a1c1cf5a07, type: 3}
-  - {fileID: 7194343177694286842, guid: 7724895b7df761d4c9e0aa752007c873, type: 3}
-  - {fileID: 6033614943833667726, guid: 036f9e49b175b244b8fbd57586cfa75d, type: 3}
+  - {fileID: 1268848586039883528, guid: fe348ec73265d854786c591050570623, type: 3}
+  - {fileID: 1368149573354152096, guid: 057c43a93cf3a7a40a870b7632f5287b, type: 3}
+  - {fileID: 6552096215006590676, guid: 239cf33e4f357f74b8894e9cde678e87, type: 3}
+  - {fileID: 2304009022396915810, guid: 205d01dbf27152f44a9e78a97b4fd93c, type: 3}
+  - {fileID: 8192062483657793774, guid: e7fc844ab7e3c65499c1efd61941838d, type: 3}
+  - {fileID: 5454747288300484719, guid: 1533377a81977c84b9edbce5cee3f316, type: 3}
+  - {fileID: 4659366099313873140, guid: 17bf86334306ca249b3df5e15623c53e, type: 3}
+  - {fileID: 2656449886922994687, guid: 4a44dc0e78c3ddc498ed0980b0c7f800, type: 3}
   expertEnemyBucket:
   - {fileID: 8913709201232531215, guid: 6b70fce1150b122489d70186aeafb00f, type: 3}
   bossBucket:
@@ -636,7 +641,7 @@ MonoBehaviour:
   initialWaitTimer: 1
   baseWaveMultipler: 1.5
   timeBetweenWaves: 1.5
-  maxTimeIdlingWaves: 30
+  maxTimeIdlingWaves: 20
   waveCountdown: 0
 --- !u!4 &894363491
 Transform:
