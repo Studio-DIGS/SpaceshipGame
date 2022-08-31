@@ -16,6 +16,7 @@ public class Player : ObjectOnPath
 
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
+    private bool isLocked = false;
     private PathCreator pathCreator;
 
     //public Transform bullet;
@@ -75,7 +76,14 @@ public class Player : ObjectOnPath
         if (!Input.GetButton("LockOrientation"))
         {
             orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
+            isLocked = false;
         }
+        else
+        {
+            isLocked = true;
+        }
+
+
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
         CheckCollision();
 
@@ -87,7 +95,7 @@ public class Player : ObjectOnPath
         }
 
         // Dashing script for player
-        if (Input.GetButton("Dash") && canDash)
+        if (Input.GetButton("Dash") && canDash && !isLocked)
         {
             StartCoroutine(dash());
         }
@@ -125,16 +133,23 @@ public class Player : ObjectOnPath
         move = input * playerStats.dashingPower;
 
         // dash trail
-        dashTrail1.GetComponent<TrailRenderer>().time = 0.5f;
-        dashTrail2.GetComponent<TrailRenderer>().time = 0.5f;
+        //dashTrail1.GetComponent<TrailRenderer>().time = 0.5f;
+        //dashTrail2.GetComponent<TrailRenderer>().time = 0.5f;
+        dashTrail1.gameObject.SetActive(true);
+        dashTrail2.gameObject.SetActive(true);
+
 
 
         yield return new WaitForSeconds(playerStats.dashingTime);
         isDashing = false;
-        dashTrail1.GetComponent<TrailRenderer>().time = 0f;
-        dashTrail2.GetComponent<TrailRenderer>().time = 0f;
+        //dashTrail1.GetComponent<TrailRenderer>().time = 0f;
+        //dashTrail2.GetComponent<TrailRenderer>().time = 0f;
+        yield return new WaitForSeconds(playerStats.dashingParticleTime - playerStats.dashingTime);
 
-        yield return new WaitForSeconds(playerStats.dashingCooldown);
+        dashTrail1.gameObject.SetActive(false);
+        dashTrail2.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(playerStats.dashingCooldown - playerStats.dashingParticleTime);
         canDash = true;
     }
 

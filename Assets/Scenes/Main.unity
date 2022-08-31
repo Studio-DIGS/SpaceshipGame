@@ -183,6 +183,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 3018681972834586132, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
   m_PrefabInstance: {fileID: 812272817}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &196152401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5199957639416638522, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+  m_PrefabInstance: {fileID: 812272817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &288757233
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +359,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 824981781484377385, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Time
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: speed
       value: 45
@@ -373,6 +382,14 @@ PrefabInstance:
     - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: bulletVelocity
       value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266082714847138479, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: dashingParticleTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938278867003926501, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_Time
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3018681972834586131, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: m_LocalPosition.y
@@ -459,6 +476,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2075909099}
     - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: dashTrail1
+      value: 
+      objectReference: {fileID: 196152401}
+    - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: dashTrail2
+      value: 
+      objectReference: {fileID: 813823862}
+    - target: {fileID: 3018681973087350998, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: playerMesh
       value: 
       objectReference: {fileID: 1063679593}
@@ -490,12 +515,25 @@ PrefabInstance:
       propertyPath: cameraShake
       value: 
       objectReference: {fileID: 1703431487}
+    - target: {fileID: 4967389296617170210, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199957639416638522, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8736954253521297192, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
       propertyPath: points
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+--- !u!1 &813823862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4967389296617170210, guid: fd5e327280c75e04a9569e0d596ef783, type: 3}
+  m_PrefabInstance: {fileID: 812272817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &894363489
 GameObject:
   m_ObjectHideFlags: 0
