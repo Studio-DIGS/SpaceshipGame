@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -17,6 +15,6 @@ public class PointsText : MonoBehaviour
 
     void Update()
     {
-        text.SetText("Points: " + points.GetPoints());
+        text.SetText("Score: " + points.GetPoints());
     }
 }

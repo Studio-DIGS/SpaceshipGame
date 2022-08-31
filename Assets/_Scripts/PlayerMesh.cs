@@ -18,10 +18,16 @@ public class PlayerMesh : MonoBehaviour
 
     private float previousTimeHit = 0.0f;
 
+    private static GameObject scoreHolderPrefab;
+
 
     void Awake()
     {
         shipMaterialRef = GetComponent<Renderer>().material;
+        if (scoreHolderPrefab == null)
+        {
+            scoreHolderPrefab = Resources.Load<GameObject>("Prefabs/ScoreHolder");
+        }
     }
 
     void Update()
@@ -70,6 +76,9 @@ public class PlayerMesh : MonoBehaviour
         if (player.healthSystem.GetHealth() <= 0)
         {
             // Death explosion goes here
+            GameObject scoreHolder = Instantiate(scoreHolderPrefab);
+            scoreHolder.GetComponent<ScoreHolder>().SetScore(player.points);
+            DontDestroyOnLoad(scoreHolder);
             SceneManager.LoadScene("GameOver");
             //Destroy(player.gameObject);
         }
