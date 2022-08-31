@@ -5,18 +5,19 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    private float volumePercent = 1.0f;
 
-    // public static AudioManager instance; //Making sure there is only 1 instance
+    public static AudioManager instance; //Making sure there is only 1 instance
 
     void Awake ()
     {
-        // if (instance == null)
-        //     instance = this;
-        // else
-        //     {
-        //         Destroy(gameObject);
-        //         return;
-        //     }
+        if (instance == null)
+            instance = this;
+        else
+            {
+                Destroy(gameObject);
+                return;
+            }
         DontDestroyOnLoad(gameObject);
 
         foreach (Sound s in sounds)
@@ -43,6 +44,24 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         s.source.Play();
+    }
+
+    public void SetVolume(float _volumePercent)
+    {
+        volumePercent = _volumePercent;
+        UpdateVolumes();
+    }
+    public float GetVolume()
+    {
+        return volumePercent;
+    }
+
+    private void UpdateVolumes()
+    {
+        foreach (Sound s in sounds)
+        {
+            s.source.volume = volumePercent;
+        }
     }
 }
 // FindObjectOfType<AudioManager>().Play("_______");
