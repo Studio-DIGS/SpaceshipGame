@@ -22,6 +22,10 @@ public class Player : ObjectOnPath
 
     private bool canDash = true;
     private bool isDashing;
+
+    public GameObject dashTrail1;
+    public GameObject dashTrail2;
+
     public bool invincible;
 
     private FireCommand mainAttack;
@@ -120,8 +124,15 @@ public class Player : ObjectOnPath
 
         move = input * playerStats.dashingPower;
 
+        // dash trail
+        dashTrail1.GetComponent<TrailRenderer>().time = 0.5f;
+        dashTrail2.GetComponent<TrailRenderer>().time = 0.5f;
+
+
         yield return new WaitForSeconds(playerStats.dashingTime);
         isDashing = false;
+        dashTrail1.GetComponent<TrailRenderer>().time = 0f;
+        dashTrail2.GetComponent<TrailRenderer>().time = 0f;
 
         yield return new WaitForSeconds(playerStats.dashingCooldown);
         canDash = true;
