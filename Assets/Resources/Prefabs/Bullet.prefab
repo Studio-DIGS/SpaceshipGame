@@ -207,8 +207,8 @@ MonoBehaviour:
   onPath: 1
   target: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
-  targetOffset: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
+  offset: 0
 --- !u!114 &-6367094155261770582
 MonoBehaviour:
   m_ObjectHideFlags: 0
