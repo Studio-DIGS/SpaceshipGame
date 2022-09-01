@@ -8,7 +8,6 @@ public class PlayerMesh : MonoBehaviour
     public Player player;
     public float smooth;
     
-    private bool invincible;
     public int numberOfFlashes;
     public float iFrameTime;
 
@@ -20,6 +19,10 @@ public class PlayerMesh : MonoBehaviour
     AudioSource[] allPlayerMeshSounds; //Ant creates container
     AudioSource playerDamaged;
     AudioSource playerDeath;
+    private float previousTimeHit = 0.0f;
+
+    private static GameObject scoreHolderPrefab;
+
 
     void Awake()
     {
@@ -27,6 +30,10 @@ public class PlayerMesh : MonoBehaviour
         allPlayerMeshSounds = player.allPlayerSounds; //Ant pulls from Player script
         playerDamaged = allPlayerMeshSounds[1];
         playerDeath = allPlayerMeshSounds[2];
+        if (scoreHolderPrefab == null)
+        {
+            scoreHolderPrefab = Resources.Load<GameObject>("Prefabs/ScoreHolder");
+        }
     }
 
     void Update()
@@ -35,14 +42,20 @@ public class PlayerMesh : MonoBehaviour
         float orientation = -1 * player.orientation;
         float angle = Mathf.Clamp(orientation * 179, -179, 0);
         Quaternion targetRot = Quaternion.Euler(0,angle,0);
+
+        previousTimeHit += Time.deltaTime;
+        if (previousTimeHit >= player.timeToRegen)
+        {
+            player.healthSystem.Heal(1);
+            previousTimeHit = 0.0f;
+        }
         
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, Time.deltaTime * smooth);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
-        if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && invincible == false)
+        if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && player.invincible == false)
         {
             TakeDamage();
             playerDamaged.Play();
@@ -51,7 +64,7 @@ public class PlayerMesh : MonoBehaviour
 
     private IEnumerator iFrames()
     {
-        invincible = true;
+        player.invincible = true;
         for (int i = 0; i < numberOfFlashes; i++)
         {
             GetComponent<Renderer>().material = iFrameMaterialRef;
@@ -59,11 +72,12 @@ public class PlayerMesh : MonoBehaviour
             GetComponent<Renderer>().material = shipMaterialRef;
             yield return new WaitForSeconds(iFrameTime / (numberOfFlashes * 2));
         }
-        invincible = false;
+        player.invincible = false;
     }
 
     public void TakeDamage()
     {
+        previousTimeHit = 0.0f;
         StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
         player.healthSystem.Damage(1);
         playerDamaged.Play();
@@ -71,6 +85,11 @@ public class PlayerMesh : MonoBehaviour
         {
             playerDeath.Play();
             //SceneManager.LoadScene("GameOver");
+            // Death explosion goes here
+            GameObject scoreHolder = Instantiate(scoreHolderPrefab);
+            scoreHolder.GetComponent<ScoreHolder>().SetScore(player.points);
+            DontDestroyOnLoad(scoreHolder);
+            SceneManager.LoadScene("GameOver");
             //Destroy(player.gameObject);
         }
 

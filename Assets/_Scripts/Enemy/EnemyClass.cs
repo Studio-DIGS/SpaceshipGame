@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 
-public class EnemyClass : ObjectOnPath
+public abstract class EnemyClass : ObjectOnPath
 {
     //public WaveSpawner waveSpawner; //Ant trying to communicate with WaveSpawner Inspector
     
     public int maxHealth;
     public float speed;
     public float acceleration;
+    public int pointsWorth;
 
     public HealthSystem healthSystem;
     public HealthBar healthBar;
 
-    protected GameObject player;
+    protected static GameObject player;
     [HideInInspector] public float initialDirection;
     [HideInInspector] public Vector3 spawnPoint;
 
-    private PathCreator pathCreator;
+    private static PathCreator pathCreator;
 
+    private static Object damageParticlePrefab;
     public ParticleSystem explosion;
+    private Formation parentFormation;
+    protected bool isAlive = true;
 
     // AudioSource[] allEnemyClassSounds; //Ant Creating host for AudioSounds
     // AudioSource enemyDeath1;
@@ -33,14 +37,28 @@ public class EnemyClass : ObjectOnPath
         player = GameObject.Find("Player");
         pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
         //allEnemyClassSounds = waveSpawner.GetComponents<AudioSource>(); //Ant Death variables gaining "Audio Source" properties from WaveSpawner Inspector
+        if (player == null)
+        {
+            player = GameObject.Find("Player");
+        }
+        if (pathCreator == null)
+        {
+            pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
+        }
+        parentFormation = this.transform.parent.gameObject.GetComponent<Formation>();
     }
 
-    protected virtual void Start()
+    public virtual void Start()
     {
         healthSystem = new HealthSystem(maxHealth);
         if (healthBar != null)
         {
             healthBar.Setup(healthSystem);
+        }
+        
+        if (damageParticlePrefab == null)
+        {
+            damageParticlePrefab = Resources.Load<ParticleSystem>("Prefabs/DamageParticles");
         }
 
         FindPointOnPath();
@@ -48,11 +66,10 @@ public class EnemyClass : ObjectOnPath
 
     private void FindPointOnPath()
     {
-        float playerDistance = pathCreator.path.GetClosestDistanceAlongPath(player.transform.position);
-        float enemySpawnDistance = playerDistance - 180f;
+        float enemySpawnDistance = parentFormation.playerDistance - 180f;
         if (enemySpawnDistance <= 0f)
         {
-            enemySpawnDistance = playerDistance + 180f;
+            enemySpawnDistance = parentFormation.playerDistance + 180f;
         }
         spawnPoint = pathCreator.path.GetPointAtDistance(enemySpawnDistance);
         spawnPoint.y = transform.position.y;
@@ -65,7 +82,15 @@ public class EnemyClass : ObjectOnPath
         if (Vector3.Distance(transform.position, spawnPoint) < 0.01f)
         {
             GetComponent<PathBound>().enabled = true;
-            initialDirection = -1 * player.GetComponent<Player>().getOrientation();
+            if (parentFormation.direction != 1.0f || parentFormation.direction != -1.0f)
+            {
+                initialDirection = parentFormation.direction;
+            }
+            else
+            {
+                initialDirection = -1 * player.GetComponent<Player>().orientation;
+                Debug.LogError("parentFormation.direction not working!");
+            }
             onPath = true;
         }
     }
@@ -74,16 +99,20 @@ public class EnemyClass : ObjectOnPath
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            ParticleSystem sparks = (ParticleSystem) Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
+            sparks.Play();
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
                 //Death SFX Here
-
+                player.GetComponent<Player>().points.AddPoints(pointsWorth);
                 // Death explosion goes here
-                Debug.Log("im dead 💀");
                 explosion.Play();
+                isAlive = false;
                 gameObject.transform.localScale = new Vector3(0, 0, 0);
+                this.gameObject.GetComponent<SphereCollider>().enabled = false;
+
                 Destroy(this.gameObject, 1);
             }
         }

@@ -12,6 +12,7 @@ public class PathBound : MonoBehaviour
     public float collisionSphereRadius = 4.0f;
     public LayerMask layerMask;
     private Vector2 targetDir;
+    private Vector3 pos3;
 
     [HideInInspector] public float distance, height;
 
@@ -44,7 +45,7 @@ public class PathBound : MonoBehaviour
 
             if (objectOnPath.target != null)
             {
-                objectOnPath.targetDir = GetTargetVector(objectOnPath.target);
+                objectOnPath.targetDir = GetTargetVector(objectOnPath.target, objectOnPath.offset);
             }
         }
         
@@ -55,17 +56,19 @@ public class PathBound : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, collisionSphereRadius, layerMask);
         foreach (var hit in hits)
         {
-            move -= GetTargetVector(hit.transform.position);
+            move -= GetTargetVector(hit.transform.position, 0f);
         }
     }
 
-    public Vector2 GetTargetVector(Vector3 objectPos)
+    public Vector2 GetTargetVector(Vector3 objectPos, float offset)
     {
         Vector2 targetVector;
-        Vector3 delta = objectPos - transform.position;
-        Vector3 tangent = pathCreator.path.GetDirectionAtDistance(distance);
+        Vector3 virtualPathPos = pathCreator.path.GetPointAtDistance(distance + offset);
+        Vector3 virtualPos = new Vector3(virtualPathPos.x, height, virtualPathPos.z);
+        Vector3 virtualTangent = pathCreator.path.GetDirectionAtDistance(distance + offset);
+        Vector3 delta = objectPos - virtualPos;
 
-        float angle = Vector3.Angle(tangent, delta);
+        float angle = Vector3.Angle(transform.forward, delta);
         if (angle <= 90f)
         {
             targetVector.x = 1;
@@ -77,6 +80,7 @@ public class PathBound : MonoBehaviour
 
         targetVector.y = Mathf.Clamp(delta.y, -1, 1);
 
+        targetVector *= Mathf.Clamp(delta.sqrMagnitude, 0, 1);
         return targetVector;
     }
 

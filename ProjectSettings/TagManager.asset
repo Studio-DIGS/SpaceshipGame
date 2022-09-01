@@ -9,6 +9,7 @@ TagManager:
   - PlayerProjectile
   - GameMusic
   - EnemyProjectile
+  - ScoreHolder
   layers:
   - Default
   - TransparentFX

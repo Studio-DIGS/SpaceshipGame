@@ -8,20 +8,26 @@ public class Player : ObjectOnPath
 {
     [SerializeField] PlayerMesh playerMesh; //Grabs from PlayerMesh script
     private PlayerStats playerStats;
-    private Points points;
+    [HideInInspector] public Points points;
     public Camera playerCamera;
     public HealthSystem healthSystem;
     public HealthBar healthBar;
+    public float timeToRegen = 20.0f;
 
     private Vector2 input;    
     public float orientation = 1; // -1 is left, +1 is right
+    private bool isLocked = false;
     private PathCreator pathCreator;
 
     //public Transform bullet;
 
     private bool canDash = true;
     private bool isDashing;
-    private bool invincible;
+
+    public GameObject dashTrail1;
+    public GameObject dashTrail2;
+
+    public bool invincible;
 
     private FireCommand mainAttack;
     private float previousFire = 0.0f;
@@ -60,11 +66,9 @@ public class Player : ObjectOnPath
         return orientation;
     }
 
-    // Update is called once per frame
     void Update()
     {
         _updatePlayer();
-        _updateParticles();
     }
 
     void _updatePlayer()
@@ -74,7 +78,7 @@ public class Player : ObjectOnPath
         
         if (isDashing)
         {
-            _checkCollision();
+            CheckCollision();
             return;
         }
 
@@ -83,9 +87,16 @@ public class Player : ObjectOnPath
         if (!Input.GetButton("LockOrientation"))
         {
             orientation = Mathf.Clamp(orientation + (input.x * 2), -1, 1); // calculate the orientation (left or right) based on input
+            isLocked = false;
         }
+        else
+        {
+            isLocked = true;
+        }
+
+
         move = Vector2.Lerp(move, input * playerStats.speed, playerStats.acceleration * Time.deltaTime);
-        _checkCollision();
+        CheckCollision();
 
         
         if (Input.GetButton("Fire1"))
@@ -96,15 +107,10 @@ public class Player : ObjectOnPath
         }
 
         // Dashing script for player
-        if (Input.GetButton("Dash") && canDash)
+        if (Input.GetButton("Dash") && canDash && !isLocked)
         {
             StartCoroutine(dash());
         }
-    }
-
-    void _updateParticles()
-    {
-        return;
     }
 
     // void FixedUpdate()
@@ -112,7 +118,7 @@ public class Player : ObjectOnPath
     //     _checkCollision();
     // }
 
-    void _checkCollision()
+    void CheckCollision()
     {
         
         Debug.DrawRay(transform.position, Vector3.up * rayDistance, Color.yellow);
@@ -138,10 +144,24 @@ public class Player : ObjectOnPath
 
         move = input * playerStats.dashingPower;
 
+        // dash trail
+        //dashTrail1.GetComponent<TrailRenderer>().time = 0.5f;
+        //dashTrail2.GetComponent<TrailRenderer>().time = 0.5f;
+        dashTrail1.gameObject.SetActive(true);
+        dashTrail2.gameObject.SetActive(true);
+
+
+
         yield return new WaitForSeconds(playerStats.dashingTime);
         isDashing = false;
+        //dashTrail1.GetComponent<TrailRenderer>().time = 0f;
+        //dashTrail2.GetComponent<TrailRenderer>().time = 0f;
+        yield return new WaitForSeconds(playerStats.dashingParticleTime - playerStats.dashingTime);
 
-        yield return new WaitForSeconds(playerStats.dashingCooldown);
+        dashTrail1.gameObject.SetActive(false);
+        dashTrail2.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(playerStats.dashingCooldown - playerStats.dashingParticleTime);
         canDash = true;
     }
 

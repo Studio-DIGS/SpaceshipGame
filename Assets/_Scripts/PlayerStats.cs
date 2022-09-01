@@ -11,4 +11,5 @@ public class PlayerStats : MonoBehaviour
     public float dashingPower;
     public float dashingTime;
     public float dashingCooldown;
+    public float dashingParticleTime;
 }
