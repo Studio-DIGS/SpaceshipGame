@@ -16,9 +16,6 @@ public class PlayerMesh : MonoBehaviour
 
     public CameraShake cameraShake;
 
-    AudioSource[] allPlayerMeshSounds; //Ant creates container
-    AudioSource playerDamaged;
-    AudioSource playerDeath;
     private float previousTimeHit = 0.0f;
 
     private static GameObject scoreHolderPrefab;
@@ -27,9 +24,6 @@ public class PlayerMesh : MonoBehaviour
     void Awake()
     {
         shipMaterialRef = GetComponent<Renderer>().material;
-        allPlayerMeshSounds = player.allPlayerSounds; //Ant pulls from Player script
-        playerDamaged = allPlayerMeshSounds[1];
-        playerDeath = allPlayerMeshSounds[2];
         if (scoreHolderPrefab == null)
         {
             scoreHolderPrefab = Resources.Load<GameObject>("Prefabs/ScoreHolder");
@@ -58,7 +52,6 @@ public class PlayerMesh : MonoBehaviour
         if ((other.gameObject.tag == "Enemy"|| other.gameObject.tag == "EnemyProjectile") && player.invincible == false)
         {
             TakeDamage();
-            playerDamaged.Play();
         }
     }
 
@@ -80,11 +73,8 @@ public class PlayerMesh : MonoBehaviour
         previousTimeHit = 0.0f;
         StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
         player.healthSystem.Damage(1);
-        playerDamaged.Play();
         if (player.healthSystem.GetHealth() <= 0)
         {
-            playerDeath.Play();
-            //SceneManager.LoadScene("GameOver");
             // Death explosion goes here
             GameObject scoreHolder = Instantiate(scoreHolderPrefab);
             scoreHolder.GetComponent<ScoreHolder>().SetScore(player.points);
