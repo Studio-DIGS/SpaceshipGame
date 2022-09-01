@@ -1486,8 +1486,8 @@ MonoBehaviour:
     rate: 0.625
     willSpawnBoss: 0
   - name: AdvancedWave2
-    count: 5
-    rate: 0.65
+    count: 0
+    rate: 1
     willSpawnBoss: 1
   - name: AdvancedWave3
     count: 7
