@@ -5,6 +5,8 @@ using PathCreation;
 
 public abstract class EnemyClass : ObjectOnPath
 {
+    //public WaveSpawner waveSpawner; //Ant trying to communicate with WaveSpawner Inspector
+    
     public int maxHealth;
     public float speed;
     public float acceleration;
@@ -24,9 +26,17 @@ public abstract class EnemyClass : ObjectOnPath
     private Formation parentFormation;
     protected bool isAlive = true;
 
+    // AudioSource[] allEnemyClassSounds; //Ant Creating host for AudioSounds
+    // AudioSource enemyDeath1;
+    // AudioSource enemyDeath2;
+    // AudioSource enemyDeath3;
+    
     protected virtual void Awake()
     {
         onPath = false;
+        player = GameObject.Find("Player");
+        pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
+        //allEnemyClassSounds = waveSpawner.GetComponents<AudioSource>(); //Ant Death variables gaining "Audio Source" properties from WaveSpawner Inspector
         if (player == null)
         {
             player = GameObject.Find("Player");
