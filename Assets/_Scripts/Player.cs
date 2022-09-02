@@ -22,7 +22,7 @@ public class Player : ObjectOnPath
     //public Transform bullet;
 
     private bool canDash = true;
-    private bool isDashing;
+    [HideInInspector] public bool isDashing;
 
     public GameObject dashTrail1;
     public GameObject dashTrail2;
@@ -143,7 +143,7 @@ public class Player : ObjectOnPath
         //TODO: Add IFrames to Dash
         canDash = false;
         isDashing = true;
-
+        invincible = true;
         move = input * playerStats.dashingPower;
 
         // dash trail
@@ -156,6 +156,7 @@ public class Player : ObjectOnPath
 
         yield return new WaitForSeconds(playerStats.dashingTime);
         isDashing = false;
+        invincible = false;
         //dashTrail1.GetComponent<TrailRenderer>().time = 0f;
         //dashTrail2.GetComponent<TrailRenderer>().time = 0f;
         yield return new WaitForSeconds(playerStats.dashingParticleTime - playerStats.dashingTime);

@@ -51,8 +51,15 @@ public class PlayerMesh : MonoBehaviour
             player.healthSystem.Heal(1);
             previousTimeHit = 0.0f;
         }
-        
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, Time.deltaTime * smooth);
+    
+        if (player.isDashing)
+        {
+            transform.Rotate(0,0, -125 * smooth * Time.deltaTime);
+        }
+        else
+        {
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRot, Time.deltaTime * smooth);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
