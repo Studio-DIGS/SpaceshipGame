@@ -39,7 +39,7 @@ public class Player : ObjectOnPath
 
     //Ant Audio
     public AudioSource[] allPlayerSounds;
-    AudioSource playerBulletSound;
+    public AudioSource playerBulletSound;
     //AudioSource playerDamagedSound;
 
     
@@ -104,7 +104,7 @@ public class Player : ObjectOnPath
         if (Input.GetButton("Fire1"))
         {
             mainAttack.Fire(this.GetComponent<Player>());
-            playerBulletSound.Play(); //Ant Bullet
+            //playerBulletSound.Play(); //Ant Bullet
             return;
         }
 
