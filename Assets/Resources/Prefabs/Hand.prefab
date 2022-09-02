@@ -117,7 +117,7 @@ MonoBehaviour:
   offsetFromHead: 13
   orientation: 0
   projectileSpeed: 30
-  shootinCooldown: 0.5
+  shootinCooldown: 0.6
 --- !u!114 &5289830929396404519
 MonoBehaviour:
   m_ObjectHideFlags: 0
