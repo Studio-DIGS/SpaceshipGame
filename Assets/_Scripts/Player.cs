@@ -37,6 +37,19 @@ public class Player : ObjectOnPath
 
     public float distanceAlongPath;
 
+    //Ant Audio
+    public AudioSource[] allPlayerSounds;
+    AudioSource playerBulletSound;
+    //AudioSource playerDamagedSound;
+
+    
+    void Awake() //Ant Awake()
+    {
+        allPlayerSounds = GetComponents<AudioSource>();
+        playerBulletSound = allPlayerSounds[0];
+        //playerDamagedSound = allPlayerSounds[1];
+        // playerDeathSound = allPlayerSounds[2];
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -91,6 +104,7 @@ public class Player : ObjectOnPath
         if (Input.GetButton("Fire1"))
         {
             mainAttack.Fire(this.GetComponent<Player>());
+            playerBulletSound.Play(); //Ant Bullet
             return;
         }
 
