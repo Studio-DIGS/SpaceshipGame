@@ -11,14 +11,26 @@ public class Enemy2 : EnemyClass
     private Vector2 moveDirection;
     private bool canShoot = true;
     
+    //Ant Audio
+    AudioSource[] allEnemy2Sounds;
+    AudioSource enemy2Death;
+    AudioSource enemy2bullet;
+
+
     private new void Awake()
     {
+        allEnemy2Sounds = GetComponents<AudioSource>(); //Ant
+        enemy2Death = allEnemy2Sounds[0]; //Ant
+        enemy2bullet = allEnemy2Sounds[1]; //Ant
+
         base.Awake();
         if (bulletPrefab == null)
         {
             bulletPrefab = Resources.Load<Bullet>("Prefabs/EnemyBullet");
         }
     }
+
+
     
 
     void Update()
@@ -69,6 +81,6 @@ public class Enemy2 : EnemyClass
         projectiles[2].Setup(-projectileSpeed, -projectileSpeed);
         projectiles[3].Setup(-projectileSpeed, projectileSpeed);
 
-        //Bullet SFX Here
+        enemy2bullet.Play();
     }
 }
