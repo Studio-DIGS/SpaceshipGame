@@ -40,6 +40,7 @@ public class Player : ObjectOnPath
     //Ant Audio
     public AudioSource[] allPlayerSounds;
     public AudioSource playerBulletSound;
+    public AudioSource dashSound;
     //AudioSource playerDamagedSound;
 
     
@@ -48,7 +49,7 @@ public class Player : ObjectOnPath
         allPlayerSounds = GetComponents<AudioSource>();
         playerBulletSound = allPlayerSounds[0];
         //playerDamagedSound = allPlayerSounds[1];
-        // playerDeathSound = allPlayerSounds[2];
+        dashSound = allPlayerSounds[2];
     }
 
     // Start is called before the first frame update
@@ -112,6 +113,7 @@ public class Player : ObjectOnPath
         if (Input.GetButton("Dash") && canDash && !isLocked)
         {
             StartCoroutine(dash());
+            dashSound.Play();
         }
     }
 

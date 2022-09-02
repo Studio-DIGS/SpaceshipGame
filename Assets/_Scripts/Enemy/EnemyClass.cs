@@ -5,6 +5,8 @@ using PathCreation;
 
 public abstract class EnemyClass : ObjectOnPath
 {
+    public Player player2; //Ant pulling from player script
+
     public int maxHealth;
     public float speed;
     public float acceleration;
@@ -24,8 +26,14 @@ public abstract class EnemyClass : ObjectOnPath
     private Formation parentFormation;
     protected bool isAlive = true;
 
+    AudioSource[] allEnemyClassSounds; //Ant
+    AudioSource enemy0Death;
+
     protected virtual void Awake()
     {
+        //allEnemyClassSounds = player2.allPlayerSounds; //Ant
+        //enemy0Death = allEnemyClassSounds[3]; //Ant
+
         onPath = false;
         if (player == null)
         {
@@ -95,7 +103,7 @@ public abstract class EnemyClass : ObjectOnPath
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
-                //Death SFX Here
+                //enemy0Death.Play(); //Ant enemy death sound
                 player.GetComponent<Player>().points.AddPoints(pointsWorth);
                 // Death explosion goes here
                 explosion.Play();

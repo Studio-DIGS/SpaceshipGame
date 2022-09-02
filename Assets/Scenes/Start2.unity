@@ -468,7 +468,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 5548e31a3a6c73b41a725ff79937f9fd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dbe40dfb3249aca43ba4e4bf028c6b5e, type: 2}
+      objectReference: {fileID: 2100000, guid: aa974dea2827b2a48a184876c9c3629b, type: 2}
     - target: {fileID: 919132149155446097, guid: 5548e31a3a6c73b41a725ff79937f9fd, type: 3}
       propertyPath: m_Name
       value: spaceship
@@ -1750,7 +1750,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 756c571a62041244a8cfae5f31d34199, type: 3}
     volume: 0.549
     pitch: 1.11
-    loop: 0
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &1974405541
 Transform:

@@ -9,8 +9,11 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance; //Making sure there is only 1 instance
 
+    AudioSource[] allAudioManagerSounds;
+
     void Awake ()
     {
+        //allAudioManagerSounds = GetComponents<AudioSource>();
         if (instance == null)
             instance = this;
         else
