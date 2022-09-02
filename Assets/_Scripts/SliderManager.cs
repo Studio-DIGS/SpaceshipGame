@@ -12,6 +12,10 @@ public class SliderManager : MonoBehaviour
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         player = GameObject.Find("Player").GetComponent<Player>();
         volume = audioManager.GetVolume();
+        foreach(AudioSource _audio in player.allPlayerSounds)
+        {
+            _audio.volume = volume;
+        }
     }
 
     public void ChangeVolume(float _volume)
