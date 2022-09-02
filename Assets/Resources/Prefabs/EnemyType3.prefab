@@ -4900,7 +4900,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
   offset: 0
-  maxHealth: 2
+  maxHealth: 3
   speed: 20
   acceleration: 1
   pointsWorth: 100
