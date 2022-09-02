@@ -4,11 +4,13 @@ using UnityEngine.Audio;
 public class SliderManager : MonoBehaviour
 {
     private AudioManager audioManager;
+    private Player player;
     public float volume;
 
     private void Awake()
     {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        player = GameObject.Find("Player").GetComponent<Player>();
         volume = audioManager.GetVolume();
     }
 
@@ -16,6 +18,10 @@ public class SliderManager : MonoBehaviour
     {
         volume = _volume;
         audioManager.SetVolume(volume);
+        foreach(AudioSource _audio in player.allPlayerSounds)
+        {
+            _audio.volume = _volume;
+        }
     }
 
 }
