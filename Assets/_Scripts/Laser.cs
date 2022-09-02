@@ -11,10 +11,13 @@ public class Laser : MonoBehaviour
     private readonly int startingIndex = 0;
     private readonly int endingIndex = 1;
 
+    public Light light;
+
     private void Awake()
     {
         warningLine.enabled = false;
         laserLine.enabled = false;
+        light.enabled = false;
     }
 
     public void DisplayWarningLine(Vector3 _startingPosition, Vector3 _finalPosition)
@@ -25,7 +28,7 @@ public class Laser : MonoBehaviour
 
     public void ShootLaser(Vector3 _startingPosition, Vector3 _finalPosition)
     {
-
+        light.enabled = !light.enabled;
         laserLine.SetPosition(startingIndex, _startingPosition);
         laserLine.SetPosition(endingIndex, _finalPosition);
     }
