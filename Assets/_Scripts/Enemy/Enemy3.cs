@@ -132,13 +132,15 @@ public class Enemy3 : EnemyClass
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
+            ParticleSystem sparks = (ParticleSystem) Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
+            sparks.Play();
             laser.RemoveLasers();
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);
             if (this.healthSystem.GetHealth() <= 0)
             {
                 player.GetComponent<Player>().points.AddPoints(pointsWorth);
-
+                enemyDeath.Play(); //Ant enemy death sound
                 explosion.Play();
                 isAlive = false;
                 laser.RemoveLasers();

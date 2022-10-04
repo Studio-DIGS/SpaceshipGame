@@ -69,6 +69,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   targetDir: {x: 0, y: 0}
   offset: 0
+  player2: {fileID: 0}
   maxHealth: 10
   speed: 10
   acceleration: 1
@@ -77,8 +78,10 @@ MonoBehaviour:
   initialDirection: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   explosion: {fileID: 6666862609427155873}
+  enemyDeath: {fileID: -8944312077659748692}
   projectileSpeed: 25
   shootingCooldown: 2.5
+  enemy2bullet: {fileID: 7748447824808904765}
 --- !u!114 &9140466409871676188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +225,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 875414822fcc18a459a5aca6e3b30509, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.119
+  m_Volume: 0.477
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -53,35 +53,29 @@ public class Enemy1 : EnemyClass
         moveDirection = targetDir;
     }
 
-    private void OnTriggerEnter(Collider other) //Overrides EnemyClass OnTriggerEnter
-    {
-        if (other.gameObject.tag == "PlayerProjectile")
-        {
-            Destroy(other.gameObject);
-            this.healthSystem.Damage(1);
-            if (this.healthSystem.GetHealth() <= 0)
-            {
-                player.GetComponent<Player>().points.AddPoints(pointsWorth);
+    // private void OnTriggerEnter(Collider other) //Overrides EnemyClass OnTriggerEnter
+    // {
+    //     if (other.gameObject.tag == "PlayerProjectile")
+    //     {
+    //         ParticleSystem sparks = (ParticleSystem) Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
+    //         sparks.Play();
+    //         Destroy(other.gameObject);
+    //         this.healthSystem.Damage(1);
+    //         if (this.healthSystem.GetHealth() <= 0)
+    //         {
+    //             player.GetComponent<Player>().points.AddPoints(pointsWorth);
+    //             enemyDeath.Play(); //Ant enemy death sound
+    //             explosion.Play();
+    //             gameObject.transform.localScale = new Vector3(0, 0, 0);
+    //             this.gameObject.GetComponent<SphereCollider>().enabled = false;
 
-                explosion.Play();
-                gameObject.transform.localScale = new Vector3(0, 0, 0);
-                this.gameObject.GetComponent<SphereCollider>().enabled = false;
-
-                Destroy(this.gameObject, 1);
-            }
-        }
-        if (other.gameObject.tag == "Player" && !playerComponent.invincible)
-        {
-            StartCoroutine(DeathAnimation()); // Insert Kamikaze explosion here
-        }
-    }
-
-    private IEnumerator DeathAnimation()
-    {
-        this.gameObject.GetComponent<SphereCollider>().enabled = false; // This line is optional, in case the death animation is longer and we don't want the enemy to hit multiple times
-        explosion.Play();
-        //Kamikaze explosion SFX Here
-        yield return new WaitForSeconds(0.5f);
-        Destroy(this.gameObject);
-    }
+    //             Destroy(this.gameObject, 1);
+    //         }
+    //     }
+    //     if (other.gameObject.tag == "Player" && !playerComponent.invincible)
+    //     {
+    //         explosion.Play();
+    //         Destroy(this.gameObject);
+    //     }
+    // }
 }

@@ -32,24 +32,25 @@ public class Player : ObjectOnPath
     private FireCommand mainAttack;
     private float previousFire = 0.0f;
 
-    private int layerMask; // Layer on Barrier
+    public LayerMask layerMask; // Layer on Barrier
     public float rayDistance;
 
     public float distanceAlongPath;
 
     //Ant Audio
     public AudioSource[] allPlayerSounds;
-    public AudioSource playerBulletSound;
-    public AudioSource dashSound;
-    //AudioSource playerDamagedSound;
+    [HideInInspector] public AudioSource playerBulletSound;
+    [HideInInspector] public AudioSource dashSound;
+    [HideInInspector] public AudioSource playerDamagedSound;
 
     
     void Awake() //Ant Awake()
     {
-        allPlayerSounds = GetComponents<AudioSource>();
-        playerBulletSound = allPlayerSounds[0];
-        //playerDamagedSound = allPlayerSounds[1];
-        dashSound = allPlayerSounds[2];
+        // allPlayerSounds = GetComponents<AudioSource>();
+        // playerBulletSound = allPlayerSounds[0];
+        dashSound = allPlayerSounds[0];
+        playerBulletSound = allPlayerSounds[1];
+        playerDamagedSound = allPlayerSounds[2];
     }
 
     // Start is called before the first frame update
@@ -61,7 +62,6 @@ public class Player : ObjectOnPath
         healthBar.Setup(healthSystem);
         points = GetComponent<Points>();
         mainAttack = (BasicAttack) ScriptableObject.CreateInstance("BasicAttack");
-        layerMask = LayerMask.NameToLayer("Barrier");
     }
 
     public float getOrientation()
@@ -146,7 +146,7 @@ public class Player : ObjectOnPath
         canDash = false;
         isDashing = true;
         invincible = true;
-        move = input * playerStats.dashingPower;
+        move = input.normalized * playerStats.dashingPower;
 
         // dash trail
         //dashTrail1.GetComponent<TrailRenderer>().time = 0.5f;

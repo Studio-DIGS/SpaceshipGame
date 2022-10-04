@@ -11,18 +11,11 @@ public class Enemy2 : EnemyClass
     private Vector2 moveDirection;
     private bool canShoot = true;
     
-    //Ant Audio
-    AudioSource[] allEnemy2Sounds;
-    AudioSource enemy2Death;
-    AudioSource enemy2bullet;
+    public AudioSource enemy2bullet;
 
 
     private new void Awake()
     {
-        allEnemy2Sounds = GetComponents<AudioSource>(); //Ant
-        enemy2Death = allEnemy2Sounds[0]; //Ant
-        enemy2bullet = allEnemy2Sounds[1]; //Ant
-
         base.Awake();
         if (bulletPrefab == null)
         {

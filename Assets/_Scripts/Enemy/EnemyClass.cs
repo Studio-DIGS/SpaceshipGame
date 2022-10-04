@@ -21,13 +21,12 @@ public abstract class EnemyClass : ObjectOnPath
 
     private static PathCreator pathCreator;
 
-    private static Object damageParticlePrefab;
+    public static Object damageParticlePrefab;
     public ParticleSystem explosion;
     private Formation parentFormation;
     protected bool isAlive = true;
 
-    AudioSource[] allEnemyClassSounds; //Ant
-    AudioSource enemy0Death;
+    public AudioSource enemyDeath;
 
     protected virtual void Awake()
     {
@@ -101,18 +100,22 @@ public abstract class EnemyClass : ObjectOnPath
             sparks.Play();
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);
-            if (this.healthSystem.GetHealth() <= 0)
-            {
-                //enemy0Death.Play(); //Ant enemy death sound
-                player.GetComponent<Player>().points.AddPoints(pointsWorth);
-                // Death explosion goes here
-                explosion.Play();
-                isAlive = false;
-                gameObject.transform.localScale = new Vector3(0, 0, 0);
-                this.gameObject.GetComponent<SphereCollider>().enabled = false;
+        }
+        else if (other.gameObject.tag == "Player" && !player.GetComponent<Player>().invincible)
+        {
+            this.healthSystem.Damage(1);
+        }
+        
+        if (this.healthSystem.GetHealth() <= 0)
+        {
+            player.GetComponent<Player>().points.AddPoints(pointsWorth);
+            enemyDeath.Play(); //Ant enemy death sound
+            explosion.Play();
+            isAlive = false;
+            gameObject.transform.localScale = new Vector3(0, 0, 0);
+            this.gameObject.GetComponent<SphereCollider>().enabled = false;
 
-                Destroy(this.gameObject, 1);
-            }
+            Destroy(this.gameObject, 1);
         }
     }
 }

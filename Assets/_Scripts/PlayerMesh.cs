@@ -20,11 +20,6 @@ public class PlayerMesh : MonoBehaviour
 
     private static GameObject scoreHolderPrefab;
 
-    //Ant Audio
-    AudioSource[] allPlayerMeshSounds;
-    AudioSource playerMeshDamaged;
-    //AudioSource playerMeshDeath;
-
 
     void Awake()
     {
@@ -33,9 +28,6 @@ public class PlayerMesh : MonoBehaviour
         {
             scoreHolderPrefab = Resources.Load<GameObject>("Prefabs/ScoreHolder");
         }
-        allPlayerMeshSounds = player.allPlayerSounds; //pulls allPlayerSounds from player script
-        playerMeshDamaged = allPlayerMeshSounds[1]; //Ant
-        //playerMeshDeath = allPlayerMeshSounds[2]; //Ant
     }
 
     void Update()
@@ -88,7 +80,7 @@ public class PlayerMesh : MonoBehaviour
         previousTimeHit = 0.0f;
         StartCoroutine(cameraShake.Shake(0.15f, 0.4f));
         player.healthSystem.Damage(1);
-        playerMeshDamaged.Play();
+        player.playerDamagedSound.Play();
         if (player.healthSystem.GetHealth() <= 0)
         {
             // Death explosion goes here
