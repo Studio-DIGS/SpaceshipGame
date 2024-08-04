@@ -21,7 +21,7 @@ public abstract class EnemyClass : ObjectOnPath
 
     private static PathCreator pathCreator;
 
-    public static Object damageParticlePrefab;
+    public GameObject damageParticlePrefab;
     public ParticleSystem explosion;
     private Formation parentFormation;
     protected bool isAlive = true;
@@ -51,11 +51,6 @@ public abstract class EnemyClass : ObjectOnPath
         if (healthBar != null)
         {
             healthBar.Setup(healthSystem);
-        }
-        
-        if (damageParticlePrefab == null)
-        {
-            damageParticlePrefab = Resources.Load<ParticleSystem>("Prefabs/DamageParticles");
         }
 
         FindPointOnPath();
@@ -96,8 +91,8 @@ public abstract class EnemyClass : ObjectOnPath
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
-            ParticleSystem sparks = (ParticleSystem) Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
-            sparks.Play();
+            var sparks = Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
+            sparks.GetComponent<ParticleSystem>().Play();
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);
         }

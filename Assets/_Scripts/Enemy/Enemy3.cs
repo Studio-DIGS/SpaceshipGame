@@ -132,8 +132,8 @@ public class Enemy3 : EnemyClass
     {
         if (other.gameObject.tag == "PlayerProjectile")
         {
-            ParticleSystem sparks = (ParticleSystem) Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
-            sparks.Play();
+            var sparks = Instantiate(damageParticlePrefab, other.gameObject.transform.position, Quaternion.identity);
+            sparks.GetComponent<ParticleSystem>().Play();
             laser.RemoveLasers();
             Destroy(other.gameObject);
             this.healthSystem.Damage(1);

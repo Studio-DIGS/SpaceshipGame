@@ -16,7 +16,7 @@ public class BossHand : EnemyClass
 
     public float projectileSpeed = 25.0f;
     public float shootinCooldown = 2.5f;
-    private static Object bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
     private bool canShoot = true;
 
     private new void Awake()
@@ -25,11 +25,6 @@ public class BossHand : EnemyClass
         if (leftHand)
         {
             phaseShift = 1;
-        }
-
-        if (bulletPrefab == null)
-        {
-            bulletPrefab = Resources.Load<Bullet>("Prefabs/BossBullet");
         }
     }
 
@@ -80,8 +75,9 @@ public class BossHand : EnemyClass
     private void FireBullet()
     {
         int enemyLayer = LayerMask.NameToLayer("Enemy");
-        Bullet projectile = (Bullet) Instantiate (bulletPrefab, (this.transform.position + orientation * transform.forward * 2f), Quaternion.identity);
-        projectile.Setup(projectileSpeed * this.orientation);
+        var _projectile = Instantiate (bulletPrefab, this.transform.position + orientation * transform.forward * 2f, Quaternion.identity);
+        var _bullet = _projectile.GetComponent<Bullet>();
+        _bullet.Setup(projectileSpeed * this.orientation);
     }
 
     float oscillate(float time, float speed, float scale)

@@ -60,7 +60,7 @@ public class Player : ObjectOnPath
         healthSystem = new HealthSystem(playerStats.maxHealth);
         healthBar.Setup(healthSystem);
         points = GetComponent<Points>();
-        mainAttack = (BasicAttack) ScriptableObject.CreateInstance("BasicAttack");
+        mainAttack = playerStats.mainAttack;
     }
 
     public float getOrientation()

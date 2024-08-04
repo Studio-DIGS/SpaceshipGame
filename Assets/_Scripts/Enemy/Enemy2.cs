@@ -6,7 +6,7 @@ public class Enemy2 : EnemyClass
 {
     [SerializeField] float projectileSpeed = 25.0f;
     [SerializeField] float shootingCooldown = 2.5f;
-    private static Object bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
 
     private Vector2 moveDirection;
     private bool canShoot = true;
@@ -17,10 +17,6 @@ public class Enemy2 : EnemyClass
     private new void Awake()
     {
         base.Awake();
-        if (bulletPrefab == null)
-        {
-            bulletPrefab = Resources.Load<Bullet>("Prefabs/EnemyBullet");
-        }
     }
 
 
@@ -66,7 +62,8 @@ public class Enemy2 : EnemyClass
         Bullet[] projectiles = new Bullet [4];
         for (int i = 0; i < 4; i++)
         {
-            Bullet curBullet = (Bullet) Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
+            var curProjectile = Instantiate(bulletPrefab, this.transform.position, Quaternion.identity);
+            var curBullet = curProjectile.GetComponent<Bullet>();
             projectiles[i] = curBullet;
         }
         projectiles[0].Setup(projectileSpeed, projectileSpeed);

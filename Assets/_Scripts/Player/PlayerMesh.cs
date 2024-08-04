@@ -18,16 +18,12 @@ public class PlayerMesh : MonoBehaviour
 
     private float previousTimeHit = 0.0f;
 
-    private static GameObject scoreHolderPrefab;
+    [SerializeField] private GameObject scoreHolderPrefab;
 
 
     void Awake()
     {
         shipMaterialRef = GetComponent<Renderer>().material;
-        if (scoreHolderPrefab == null)
-        {
-            scoreHolderPrefab = Resources.Load<GameObject>("Prefabs/ScoreHolder");
-        }
     }
 
     void Update()
