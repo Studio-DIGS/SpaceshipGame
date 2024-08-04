@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab27e8612fc65a14c9a144558dd0235f, type: 3}
   m_Name: BasicAttack
   m_EditorClassIdentifier: 
+  projectile: {fileID: 8359112738041756004, guid: 36f2259423a721744b4441f26b47f614, type: 3}
