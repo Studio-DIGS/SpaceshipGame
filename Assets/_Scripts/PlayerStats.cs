@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+[CreateAssetMenu(fileName = "Player", menuName = "ScriptableObjects/PlayerStats")]
+public class PlayerStats : ScriptableObject
 {
     public int maxHealth;
     public float speed;

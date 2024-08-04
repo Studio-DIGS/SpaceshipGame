@@ -6,8 +6,8 @@ using PathCreation;
 
 public class Player : ObjectOnPath
 {
+    public PlayerStats playerStats;
     [SerializeField] PlayerMesh playerMesh;
-    private PlayerStats playerStats;
     [HideInInspector] public Points points;
     public Camera playerCamera;
     public HealthSystem healthSystem;
@@ -56,7 +56,6 @@ public class Player : ObjectOnPath
     // Start is called before the first frame update
     void Start()
     {
-        playerStats = GetComponent<PlayerStats>();
         pathCreator = GameObject.FindWithTag("WorldPath").GetComponent<PathCreator>();
         healthSystem = new HealthSystem(playerStats.maxHealth);
         healthBar.Setup(healthSystem);
